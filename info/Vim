@@ -1,0 +1,27 @@
+Vim:
+
+FILE:
+run vim ==  shell $vim project_name.c
+-command mode: use commands )default when vim opened
+-session mode: insert text
+switch to session mode == i
+switch to command mode == Esc
+quit vim == :q
+save file == :w
+open another file == :e name_of_file
+
+EDIT:
+ir al final de una linea == $
+ir al principio de una linea == ^
+buscar algo en el archivo == ctrl+S cosa_que_busco
+reedit file == :e_name_of_file.c
+
+BUFFERS:
+split screen vertically (linea vertical) == :vs
+split screen horizontally (linea horizontal) == :sp
+move between buffers == ctrl+W arrows
+close buffer == :q
+
+42 HEADER:
+:Stdhe
+
