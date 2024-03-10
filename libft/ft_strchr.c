@@ -23,9 +23,9 @@ char	*ft_strchr(const char *s, int c)
 	s_cpy = (char *) s;
 	while (*(s_cpy + len) != '\0')
 		len++;
-	if (c == '\0')
+	if ((char) c == '\0')
 		return (s_cpy + len);
-	while (*(s_cpy + i) != '\0')
+	while (i <= len)
 	{
 		if ((char) c == *(s_cpy + i))
 			return (s_cpy + i);
