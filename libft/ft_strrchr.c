@@ -23,11 +23,11 @@ char	*ft_strrchr(const char *s, int c)
 	s_cpy = (char *) s;
 	while (*(s_cpy + len) != '\0')
 		len++;
-	if (c == '\0')
+	if ((char) c == '\0')
 		return (s_cpy + len);
 	else
 		len--;
-	while (*(s_cpy + len - i) != '\0' && i < len)
+	while (i <= len)
 	{
 		if ((char) c == *(s_cpy + len - i))
 			return (s_cpy + len - i);
