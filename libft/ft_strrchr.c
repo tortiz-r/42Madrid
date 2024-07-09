@@ -6,7 +6,7 @@
 /*   By: tortiz-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 19:36:07 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/07/09 13:25:31 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/07/09 16:57:17 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strrchr(const char *s, int c)
 	s_cpy = (char *) s;
 	while (*(s_cpy + len) != '\0')
 		len++;
-	if (c == '\0')
+	if ((char) c == '\0')
 		return (s_cpy + len);
 	else
 		len--;

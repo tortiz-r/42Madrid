@@ -6,7 +6,7 @@
 #    By: tortiz-r <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/16 12:14:00 by tortiz-r          #+#    #+#              #
-#    Updated: 2024/07/09 13:04:53 by tortiz-r         ###   ########.fr        #
+#    Updated: 2024/07/09 15:52:01 by tortiz-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC =   ft_isalpha.c \
 	    ft_strchr.c \
 		ft_strrchr.c \
 		ft_strncmp.c \
-        ft_memchr.c 
+		ft_memchr.c 
+        
 
 OBJ = ${SRC:.c=.o}
 

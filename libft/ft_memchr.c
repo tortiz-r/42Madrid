@@ -6,7 +6,7 @@
 /*   By: tortiz-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:05:01 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/07/09 13:48:38 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:37:57 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int				i;
+	unsigned long	i;
 	unsigned char	*s_cpy;
 
 	i = 0;
 	s_cpy = (unsigned char *) s;
-	while ((unsigned long) i < n)
+	while (i < n)
 	{
 		if ((unsigned char) c == *(s_cpy + i))
 			return (s_cpy + i);
@@ -51,4 +51,5 @@ int main(void)
     	printf("%c", result[i]);
 		i++;
 	}
+
 }*/
