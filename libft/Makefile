@@ -6,25 +6,27 @@
 #    By: tortiz-r <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/16 12:14:00 by tortiz-r          #+#    #+#              #
-#    Updated: 2024/02/24 19:45:19 by tortiz-r         ###   ########.fr        #
+#    Updated: 2024/07/09 13:04:53 by tortiz-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-SRC = ft_isalpha.c \
-	  ft_isdigit.c \
-	  ft_isalnum.c \
-	  ft_isascii.c \
-	  ft_isprint.c \
-	  ft_strlen.c \
-	  ft_memset.c \
-	  ft_bzero.c \
-	  ft_memcpy.c \
-	  ft_toupper.c \
-	  ft_tolower.c \
-	  ft_strchr.c \
-	  ft_strrchr.c
+SRC =   ft_isalpha.c \
+	    ft_isdigit.c \
+	    ft_isalnum.c \
+	    ft_isascii.c \
+	    ft_isprint.c \
+	    ft_strlen.c \
+	    ft_memset.c \
+	    ft_bzero.c \
+	    ft_memcpy.c \
+	    ft_toupper.c \
+	    ft_tolower.c \
+	    ft_strchr.c \
+		ft_strrchr.c \
+		ft_strncmp.c \
+        ft_memchr.c 
 
 OBJ = ${SRC:.c=.o}
 
