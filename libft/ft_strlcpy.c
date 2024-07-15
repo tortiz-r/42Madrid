@@ -6,7 +6,7 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 12:56:39 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/07/11 15:37:04 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:59:57 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 
 	i = 0;
 	src_cpy = (char *) src;
-	while (i < size && src_cpy[i] != '\0')
+	if (size == 0)
+		return ((unsigned long) ft_strlen(src_cpy));
+	while (i < (size - 1) && src_cpy[i] != '\0')
 	{
 		dst[i] = src_cpy[i];
 		i++;

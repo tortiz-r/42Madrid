@@ -1,35 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 17:53:33 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/07/15 15:25:05 by tortiz-r         ###   ########.fr       */
+/*   Created: 2024/07/15 16:58:15 by tortiz-r          #+#    #+#             */
+/*   Updated: 2024/07/15 19:38:47 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+int	ft_atoi(const char *nptr)
 {
-	int		len;
-	int		i;
-	char	*s_cpy;
+	unsigned int	i;
+	char			*str;
+	int				sign;
+	int				result;
 
 	i = 0;
-	len = 0;
-	s_cpy = (char *) s;
-	while (*(s_cpy + len) != '\0')
-		len++;
-	if ((char) c == '\0')
-		return (s_cpy + len);
-	while (*(s_cpy + i) != '\0')
+	str = (char *) nptr;
+	sign = 1;
+	result = 0;
+	while (str[i] == ' ')
+		i++;
+	if (str[i] == '-')
 	{
-		if ((char) c == *(s_cpy + i))
-			return (s_cpy + i);
+		sign = sign * (-1);
 		i++;
 	}
-	return (NULL);
+	result = sign * ascii_to_int(str + i);
+	return (result);
+}
+
+int	ascii_to_int(char *str)
+{
+	unsigned int	i;
+	int				result;
+
+	i = 0;
+	while (i < ft_strlen(str))
+	{
+		result = result + (str[i] - 48) * power(10, i);
+	}
+	return (result);
 }

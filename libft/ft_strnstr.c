@@ -6,7 +6,7 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 12:58:35 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/07/11 15:38:48 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:27:35 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 
 	big_cpy = (char *) big;
 	little_cpy = (char *) little;
-	if (big_cpy == NULL || little_cpy == NULL)
-		return (NULL);
-	else if (little_cpy[0] == '\0')
+	if (little_cpy[0] == '\0')
 		return (big_cpy);
 	else if (big_cpy[0] == '\0')
 		return (NULL);

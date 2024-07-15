@@ -6,7 +6,7 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 13:00:42 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/07/11 16:00:06 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:54:06 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	size_t	i;
 
 	i = 0;
-	if (size == 0)
-		return (NULL);
 	ptr = malloc(nmemb * size);
 	ptr_edit = (char *) ptr;
 	if (ptr_edit != NULL)
 	{
-		while (i < size)
+		while (i < nmemb * size)
 		{
-			ptr_edit[i] = '0';
+			ptr_edit[i] = 0;
 			i++;
 		}
 		return (ptr);
