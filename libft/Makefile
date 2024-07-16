@@ -6,7 +6,7 @@
 #    By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/16 12:14:00 by tortiz-r          #+#    #+#              #
-#    Updated: 2024/07/16 10:16:22 by tortiz-r         ###   ########.fr        #
+#    Updated: 2024/07/16 21:37:51 by tortiz-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,18 @@ SRC =   ft_isalpha.c \
 		ft_strnstr.c \
 		ft_atoi.c \
 		ft_calloc.c \
-		ft_strdup.c
+		ft_strdup.c \
+		ft_substr.c \
+		ft_strjoin.c \
+		ft_strtrim.c \
+		ft_split.c \
+		ft_itoa.c \
+		ft_strmapi.c \
+		ft_striteri.c \
+		ft_putchar_fd.c \
+		ft_putstr_fd.c \
+		ft_putendl_fd.c \
+		ft_putnbr_fd.c
         
 OBJ = ${SRC:.c=.o}
 

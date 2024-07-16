@@ -6,13 +6,13 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:58:15 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/07/16 10:50:57 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/07/16 14:51:01 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	calc_int(char *str_num);
+unsigned int	calc_int(char *str_num);
 
 int	ft_atoi(const char *nptr)
 {
@@ -37,16 +37,16 @@ int	ft_atoi(const char *nptr)
 	return (result);
 }
 
-int	calc_int(char *str_num)
+unsigned int	calc_int(char *str_num)
 {
 	unsigned int	i;
-	int				result;
+	unsigned int	result;
 
 	i = 0;
 	result = 0;
 	while (i < ft_strlen(str_num) && (str_num[i] >= '0' && str_num[i] <= '9'))
 	{
-		result = result * 10 + (int)(str_num[i] - 48);
+		result = result * 10 + (unsigned int)(str_num[i] - '0');
 		i++;
 	}
 	return (result);
