@@ -6,7 +6,7 @@
 #    By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/16 12:14:00 by tortiz-r          #+#    #+#              #
-#    Updated: 2024/07/15 19:38:45 by tortiz-r         ###   ########.fr        #
+#    Updated: 2024/07/16 10:16:22 by tortiz-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC =   ft_isalpha.c \
 		ft_memchr.c \
 		ft_memcmp.c \
 		ft_strnstr.c \
+		ft_atoi.c \
 		ft_calloc.c \
 		ft_strdup.c
         
