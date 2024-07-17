@@ -6,7 +6,7 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:12:36 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/07/16 18:28:45 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/07/17 11:57:52 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,3 +80,21 @@ char	*int_to_char(char *str_num, int n, unsigned int orden_magn)
 }
 
 //malloc por lo menos orden_magn + 1 para el \0 del final además de digitos
+/*
+#include<unistd.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include "ft_strlen.c"
+
+int main(void)
+{
+    const char	*str;
+	int			integer;
+    
+
+    integer = -2147483648;
+    //c = 'a';
+    str = ft_itoa(integer);
+	printf("Mi número de partida es:\n%i\n", integer);
+	printf("La string devuelta es:\n%s\n", str);
+}*/
