@@ -6,7 +6,7 @@
 #    By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/16 12:14:00 by tortiz-r          #+#    #+#              #
-#    Updated: 2024/11/25 12:15:39 by tortiz-r         ###   ########.fr        #
+#    Updated: 2024/11/25 13:26:26 by tortiz-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ SRC_BONUS = ft_lstnew_bonus.c \
 		ft_lstdelone_bonus.c \
 		ft_lstclear_bonus.c \
 		ft_lstiter_bonus.c \
-		#ft_lstmap_bonus.c
+		ft_lstmap_bonus.c
 
 OBJ_BONUS = ${SRC_BONUS:.c=.o}
 

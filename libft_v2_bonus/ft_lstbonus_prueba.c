@@ -6,7 +6,7 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:43:17 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/11/25 12:18:04 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:42:25 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,8 @@ int	main(void)
 		test = test->next;
 	}
 	ft_lstclear(&list, &ft_del);
-	printf("list => CORE DUMPED\n");
+	printf("list => CORE DUMPED");
+	//printf("list => %s\n", (char *)(list->content));
 		printf(MAGENTA_T "------- FT_LSTCLEAR SUCCESSFUL\n" RESET_COLOR);
 
 		printf("\n---------- TEST FT_LSTITER ----------\n");
@@ -179,9 +180,28 @@ int	main(void)
 		printf("list => CORE DUMPED\n");
 		printf(MAGENTA_T "------- FT_LSTITER SUCCESSFUL\n" RESET_COLOR);
 
-
 		printf("\n---------- TEST FT_LSTMAP ----------\n");
-
+	//CREAMOS LISTA DE NUEVO
+	nodo4_ptr = ft_lstnew("4");
+	nodo3_ptr = ft_lstnew("3");
+	nodo2_ptr = ft_lstnew("2");
+	nodo1_ptr = ft_lstnew("1");
+	nodo0_ptr = ft_lstnew("0");
+	list = nodo4_ptr;
+	ft_lstadd_front(&list, nodo3_ptr);
+	ft_lstadd_front(&list, nodo2_ptr);
+	ft_lstadd_front(&list, nodo1_ptr);
+	ft_lstadd_front(&list, nodo0_ptr);
+	printf(AZUL_T "------- Lista creada de nuevo: ");
+	test = list;
+	while (test!= NULL)
+	{
+		printf("%s --> ", (char *)(test->content));
+		if ((test->next) == NULL)
+			printf("(NULL)\n" RESET_COLOR);
+		test = test->next;
+	}
+	
 
 	return (0);
 }
@@ -271,24 +291,38 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*))
 	(*del)(lst->content);
 	free(lst);
 }
+// void	ft_lstclear(t_list **lst, void (*del)(void*))
+// {
+// 	t_list	*next_node_ptr;
+
+// 	if (*lst != NULL)
+// 	{
+// 		//printf("El contenido del nodo es %s.\n", (char *)((*lst)->content));
+// 		(*del)((*lst)->content);
+// 		/*if (((*lst)->content) == NULL)
+// 			printf("Contenido del nodo borrado.\n");*/
+// 		next_node_ptr = (*lst)->next;
+// 	}
+// 	if (next_node_ptr != NULL)
+// 	{
+// 		//printf("El contenido del siguiente nodo, que es %s, lo paso de nuevo.\n", (char *)(next_node_ptr->content));
+// 		ft_lstclear(&next_node_ptr, del);
+// 	}
+// 	free(*lst);
+// }
 void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
 	t_list	*next_node_ptr;
 
-	if (*lst != NULL)
+	//ft_lstiter(*lst, del);
+	next_node_ptr = *lst;
+	while (*lst != NULL)
 	{
-		//printf("El contenido del nodo es %s.\n", (char *)((*lst)->content));
-		(*del)((*lst)->content);
-		/*if (((*lst)->content) == NULL)
-			printf("Contenido del nodo borrado.\n");*/
+		del((*lst)->content);
 		next_node_ptr = (*lst)->next;
+		free(*lst);
+		*lst = next_node_ptr;
 	}
-	if (next_node_ptr != NULL)
-	{
-		//printf("El contenido del siguiente nodo, que es %s, lo paso de nuevo.\n", (char *)(next_node_ptr->content));
-		ft_lstclear(&next_node_ptr, del);
-	}
-	free(*lst);
 }
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
@@ -307,4 +341,29 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 			i++;
 		}
 	}
+}
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+{
+	t_list	*result_list_ptr;
+	t_list	*node_ptr;
+	t_list	*current_ptr;
+
+	if (lst == NULL)
+		return (NULL);
+	result_list_ptr = ft_lstnew((*f)(lst->content));
+	if (result_list_ptr == NULL)
+		free(result_list_ptr);
+	current_ptr = lst->next;
+	while (current_ptr != NULL)
+	{
+		node_ptr = ft_lstnew((*f)(current_ptr->content));
+		if (node_ptr == NULL)
+		{
+			ft_lstclear(&result_list_ptr, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&result_list_ptr, node_ptr);
+		current_ptr = current_ptr->next;		
+	}
+	return (result_list_ptr);
 }
