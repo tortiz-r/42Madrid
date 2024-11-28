@@ -6,7 +6,7 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:43:17 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/11/25 13:42:25 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:22:19 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,15 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-
+void	ft_lstclear_map(t_list **lst, void (*del)(void*), size_t size);
 
 void	ft_del(void *ptr)
 {
 	ptr = 0;
+}
+void 	*(ft_trivial)(void *ptr)
+{
+	return (ptr);
 }
 
 //TESTS: lista 0 --> 1 --> 2 --> 3 --> (NULL)
@@ -47,10 +51,11 @@ int	main(void)
 	t_list	*nodo2_ptr;
 	t_list	*nodo1_ptr;
 	t_list	*nodo0_ptr;
-	//DECLARO PTR A LISTA, LAST Y TEST
+	//DECLARO PTR A LISTA, LAST, CURRENT_PTR Y RESULT
 	t_list	*list;
 	t_list	*last;
-	t_list	*test;
+	t_list	*current_ptr;
+	t_list	*result;
 	int		size;
 	int 	i;
 
@@ -75,14 +80,14 @@ int	main(void)
 	ft_lstadd_front(&list, nodo1_ptr);
 	ft_lstadd_front(&list, nodo0_ptr);
 	//IMPRIMIR LISTA
-	test = list;
+	current_ptr = list;
 	printf(AZUL_T "------- Lista creada: ");
-	while (test!= NULL)
+	while (current_ptr!= NULL)
 	{
-		printf("%s --> ", (char *)(test->content));
-		if ((test->next) == NULL)
+		printf("%s --> ", (char *)(current_ptr->content));
+		if ((current_ptr->next) == NULL)
 			printf("(NULL)\n" RESET_COLOR);
-		test = test->next;
+		current_ptr = current_ptr->next;
 	}
 		printf(MAGENTA_T "------- FT_LSTADD_FRONT SUCCESSFUL\n" RESET_COLOR);
 
@@ -101,13 +106,13 @@ int	main(void)
 	ft_lstadd_back(&list, nodo4_ptr);
 	printf(AZUL_T "------- Node4 añadido al final de la lista\n" RESET_COLOR);
 	printf(AZUL_T "------- Lista modificada: ");
-	test = list;
-	while (test!= NULL)
+	current_ptr = list;
+	while (current_ptr!= NULL)
 	{
-		printf("%s --> ", (char *)(test->content));
-		if ((test->next) == NULL)
+		printf("%s --> ", (char *)(current_ptr->content));
+		if ((current_ptr->next) == NULL)
 			printf("(NULL)\n" RESET_COLOR);
-		test = test->next;
+		current_ptr = current_ptr->next;
 	}
 	size = ft_lstsize(list);
 	printf(VERDE_T "El tamaño de la lista modificada es: %i.\n" RESET_COLOR, size);
@@ -119,17 +124,17 @@ int	main(void)
 	printf(AZUL_T "------- ft_lstdelone aplicada a nodo4_ptr\n" RESET_COLOR);
 	//IMPRIMIR LISTA
 	if (list)
-		printf("list existe y contenido es %s\n", (char *)(list->content));
-	test = list;
-	if (test->next)
-		printf("test->next existe y contenido es %s\n", (char *)((test->next)->content));
+		printf(VERDE_T "list existe y contenido es %s\n", (char *)(list->content));
+	current_ptr = list;
+	if (current_ptr->next)
+		printf("current_ptr->next existe y contenido es %s\n", (char *)((current_ptr->next)->content));
 	printf(AZUL_T "------- Lista: ");
-	while (test!= NULL && i < (size_t)(size - 1))
+	while (current_ptr!= NULL && i < (size_t)(size - 1))
 	{
-		printf("%s --> ", (char *)(test->content));
-		if ((test->next) == NULL)
+		printf("%s --> ", (char *)(current_ptr->content));
+		if ((current_ptr->next) == NULL)
 			printf("(NULL)\n" RESET_COLOR);
-		test = test->next;
+		current_ptr = current_ptr->next;
 		i++;
 	}
 	printf(AZUL_T "(=> CORE DUMPED)\n(pq hemos delone node4)\n" RESET_COLOR);
@@ -141,17 +146,17 @@ int	main(void)
 	nodo3_ptr->next = nodo4_ptr;
 		printf(AZUL_T "------- Lista devuelta a como estaba sin delone\n" RESET_COLOR);
 	//IMPRIMIR LISTA, APLICAR CLEAR
-	test = list;
+	current_ptr = list;
 	printf(AZUL_T "------- Lista: ");
-	while (test!= NULL)
+	while (current_ptr!= NULL)
 	{
-		printf("%s --> ", (char *)(test->content));
-		if ((test->next) == NULL)
+		printf("%s --> ", (char *)(current_ptr->content));
+		if ((current_ptr->next) == NULL)
 			printf("(NULL)\n" RESET_COLOR);
-		test = test->next;
+		current_ptr = current_ptr->next;
 	}
 	ft_lstclear(&list, &ft_del);
-	printf("list => CORE DUMPED");
+	printf(VERDE_T "list => CORE DUMPED\n");
 	//printf("list => %s\n", (char *)(list->content));
 		printf(MAGENTA_T "------- FT_LSTCLEAR SUCCESSFUL\n" RESET_COLOR);
 
@@ -168,41 +173,53 @@ int	main(void)
 	ft_lstadd_front(&list, nodo1_ptr);
 	ft_lstadd_front(&list, nodo0_ptr);
 	printf(AZUL_T "------- Lista creada de nuevo: ");
-	test = list;
-	while (test!= NULL)
+	current_ptr = list;
+	while (current_ptr!= NULL)
 	{
-		printf("%s --> ", (char *)(test->content));
-		if ((test->next) == NULL)
+		printf("%s --> ", (char *)(current_ptr->content));
+		if ((current_ptr->next) == NULL)
 			printf("(NULL)\n" RESET_COLOR);
-		test = test->next;
+		current_ptr = current_ptr->next;
 	}
 	ft_lstiter(list, &ft_del);
-		printf("list => CORE DUMPED\n");
+		printf(VERDE_T "list => CORE DUMPED\n");
 		printf(MAGENTA_T "------- FT_LSTITER SUCCESSFUL\n" RESET_COLOR);
 
 		printf("\n---------- TEST FT_LSTMAP ----------\n");
 	//CREAMOS LISTA DE NUEVO
-	nodo4_ptr = ft_lstnew("4");
-	nodo3_ptr = ft_lstnew("3");
+	nodo4_ptr = ft_lstnew("hello!");
+	nodo3_ptr = ft_lstnew("adios!");
 	nodo2_ptr = ft_lstnew("2");
 	nodo1_ptr = ft_lstnew("1");
 	nodo0_ptr = ft_lstnew("0");
 	list = nodo4_ptr;
-	ft_lstadd_front(&list, nodo3_ptr);
-	ft_lstadd_front(&list, nodo2_ptr);
-	ft_lstadd_front(&list, nodo1_ptr);
-	ft_lstadd_front(&list, nodo0_ptr);
+	ft_lstadd_back(&list, nodo3_ptr);
+	// ft_lstadd_front(&list, nodo2_ptr);
+	// ft_lstadd_front(&list, nodo1_ptr);
+	// ft_lstadd_front(&list, nodo0_ptr);
 	printf(AZUL_T "------- Lista creada de nuevo: ");
-	test = list;
-	while (test!= NULL)
+	current_ptr = list;
+	while (current_ptr!= NULL)
 	{
-		printf("%s --> ", (char *)(test->content));
-		if ((test->next) == NULL)
+		printf("%s --> ", (char *)(current_ptr->content));
+		if ((current_ptr->next) == NULL)
 			printf("(NULL)\n" RESET_COLOR);
-		test = test->next;
+		current_ptr = current_ptr->next;
 	}
-	
 
+	printf(AZUL_T "------- Lista result de lstmap: ");
+	result = ft_lstmap(list, &ft_trivial, &ft_del);
+	current_ptr = result;
+	while (current_ptr!= NULL)
+	{
+		printf("%s --> ", (char *)(current_ptr->content));
+		if ((current_ptr->next) == NULL)
+			printf("(NULL)\n" RESET_COLOR);
+		current_ptr = current_ptr->next;
+	}
+	printf(VERDE_T "no hay activado nada que simule un malloc fallido, así que genial\n" RESET_COLOR);
+	printf(VERDE_T "si queremos simular malloc fallido, descomentar de la función \n" RESET_COLOR);
+		printf(MAGENTA_T "------- FT_LSTMAP SUCCESSFUL\n" RESET_COLOR);
 	return (0);
 }
 
@@ -342,28 +359,84 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 		}
 	}
 }
+// t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+// {
+// 	t_list	*result_list_ptr;
+// 	t_list	*node_ptr;
+// 	t_list	*current_ptr;
+
+// 	if (lst == NULL)
+// 		return (NULL);
+// 	result_list_ptr = ft_lstnew((*f)(lst->content));
+// 	if (result_list_ptr == NULL)
+// 		free(result_list_ptr);
+// 	current_ptr = lst->next;
+// 	while (current_ptr != NULL)
+// 	{
+// 		node_ptr = ft_lstnew((*f)(current_ptr->content));
+// 		if (node_ptr == NULL)
+// 		{
+// 			ft_lstclear(&result_list_ptr, del);
+// 			return (NULL);
+// 		}
+// 		ft_lstadd_back(&result_list_ptr, node_ptr);
+// 		current_ptr = current_ptr->next;		
+// 	}
+// 	return (result_list_ptr);
+// }
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*result_list_ptr;
-	t_list	*node_ptr;
-	t_list	*current_ptr;
+	t_list	*result_list;
+	t_list	*new_node_ptr;
+	t_list	*current_ptr_lst;
 
 	if (lst == NULL)
 		return (NULL);
-	result_list_ptr = ft_lstnew((*f)(lst->content));
-	if (result_list_ptr == NULL)
-		free(result_list_ptr);
-	current_ptr = lst->next;
-	while (current_ptr != NULL)
+	result_list = ft_lstnew(NULL);
+	if (result_list == NULL)
+		return (NULL);
+	else
+		result_list->content = (*f)(lst->content);
+	current_ptr_lst = lst->next;
+	while (current_ptr_lst != NULL && result_list != NULL)
 	{
-		node_ptr = ft_lstnew((*f)(current_ptr->content));
-		if (node_ptr == NULL)
+		new_node_ptr = ft_lstnew(NULL);
+		/*printf("El contenido del nodo es %s.\n", (char *)((new_node_ptr)->content));			
+		if (current_ptr_lst->content == "adios!")
 		{
-			ft_lstclear(&result_list_ptr, del);
-			return (NULL);
+			printf("NODO adios! NULIFICADO.\n");
+			new_node_ptr = NULL;
+		}*/
+		if (new_node_ptr == NULL)
+			ft_lstclear_map(&result_list, del, ft_lstsize(result_list));
+		else
+		{
+			new_node_ptr->content = f(current_ptr_lst->content);
+			ft_lstadd_back(&result_list, new_node_ptr);
+			current_ptr_lst = current_ptr_lst->next;
 		}
-		ft_lstadd_back(&result_list_ptr, node_ptr);
-		current_ptr = current_ptr->next;		
 	}
-	return (result_list_ptr);
+	return (result_list);
+}
+
+void	ft_lstclear_map(t_list **lst, void (*del)(void*), size_t size)
+{
+	t_list	*next_node_ptr;
+	size_t	i_clear;
+
+	next_node_ptr = *lst;
+	i_clear = 0;
+	//printf("ESTOY EN LSTCLEARMAP!!\n");
+	while (i_clear < size)
+	{
+		//printf("El contenido del nodo es %s.\n", (char *)((*lst)->content));
+		del((*lst)->content);
+		// if (((*lst)->content) == NULL)
+		// 	printf("Contenido del nodo %lu deleted\n", i_clear + 1);
+		next_node_ptr = (*lst)->next;
+		free(*lst);
+		// printf("Nodo %lu free\n", i_clear + 1);
+		*lst = next_node_ptr;
+		i_clear++;
+	}
 }

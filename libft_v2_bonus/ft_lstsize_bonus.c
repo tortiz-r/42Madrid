@@ -6,13 +6,13 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:48:15 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/11/14 15:33:02 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/11/28 14:35:59 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_lstsize(t_list *lst)
+int	ft_lstsize(t_list *lst)
 {
 	int		size;
 	t_list	*current_ptr;
