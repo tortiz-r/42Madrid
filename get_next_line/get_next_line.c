@@ -6,7 +6,7 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 12:27:07 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/11/07 13:19:41 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:21:00 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_next_line(int fd)
 	printf("La variable estática flag es: %i\n", flag);
 	//leer línea, llamar a write_buffer hasta que tengamos un /n al final
 	//usar una variable estática que sea rollo una flag?? 
-	//si tenemos cosas después de un /n, quitatrlas por detrás
+	//si tenemos cosas después de un /n, quitarlas por detrás
 	flag = write_buffer(fd, flag);
 
 	if (flag != -1)
@@ -33,13 +33,13 @@ char	*get_next_line(int fd)
 	return (NULL);
 }
 
-int	write_buffer(int fd, int flag)
+int	write_to_buffer(int fd, int flag)
 {
-	int					read_size;
-	char				*buffer;
-	struct read_list	t_read_list1;
+	int			read_size;
+	char		*buffer;
+	t_list		*read_list;
+
 	// CONTROLAR CÓMO ESTÁ LA FLAG
-	buffer = malloc((size_t)BUFFER_SIZE);
 	if (buffer == NULL)
 	{
 		free(buffer); //AQUÍ DEBERÍA HACER UN FREE DE TODA LISTA***
@@ -71,7 +71,7 @@ int	write_buffer(int fd, int flag)
 hay que asegurarse que liberamos toda la memoria que hayamos podido coger antes
 */
 
-//ssize_t read(int fildes, void *buf, size_t nbyte);
+//size_t read(int fildes, void *buf, size_t nbyte);
 // para compilar:
 //cc -Wall -Werror -Wextra -D BUFFER_SIZE=42 *.c *.h
 
