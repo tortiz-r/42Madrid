@@ -6,7 +6,7 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 12:27:07 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/11/28 17:21:00 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/12/06 22:17:17 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,47 +18,90 @@
 
 char	*get_next_line(int fd)
 {
-	static int	flag;
+	t_list		*lines_read;
+	t_list		*temp_ptr;
+	char		*buffer;
+	static int	gnl_calls = 0;
 
-	flag = 0;
-	printf("\n--->get_next_line<---\n");
-	printf("La variable estática flag es: %i\n", flag);
-	//leer línea, llamar a write_buffer hasta que tengamos un /n al final
-	//usar una variable estática que sea rollo una flag?? 
-	//si tenemos cosas después de un /n, quitarlas por detrás
-	flag = write_buffer(fd, flag);
+	if (gnl_calls == 0)
+	{
+		lines_read = ft_lstnew(NULL);
+		buffer = write_buffer(fd);
+		temp_ptr = distrib_buffer_in_nodes(buffer, &lines_read);
+		
+		//////crear todo desde cero
+	}
+	else if (lines_read->content == NULL && gnl_calls != 0)
+		return (NULL); //no hay nada más que leer
+	if (ft_lstsize(lines_read) > 2)
+	{
+		temp_ptr = lines_read->next;
+		ft_lstclear_num(&lines_read, 1); //eliminar 1º nodo
+		lines_read = temp_ptr;
+		return (lines_read->content);
+	}
+	else if (ft_lstsize(lines_read) == 2)
+		{
+	//eliminar el primer nodo (linea devuelta antes) y mod lines_read_list
+	/*cuando tenga \n\0 en buffer, creo otro nodo con null content.*/
+			//miro si es NULL o no (atención al caso de no \n sí \0!!)
+			//no:
+				//write_buffer
+				//scan cuantas \n tengo (atención al \0!!!!!!!)
+				//meter cada trocito de buffer en su nodo adecuado y free(buffer)
+				//atención, poner un \0 al final si no hay \n!!!!
+			
+		}
 
-	if (flag != -1)
-		return (NULL);
-	return (NULL);
+	gnl_calls++;
+	return (lines_read->content);
 }
 
-int	write_to_buffer(int fd, int flag)
+char	*write_buffer(int fd)
 {
-	int			read_size;
-	char		*buffer;
-	t_list		*read_list;
+	char	*buffer;
 
-	// CONTROLAR CÓMO ESTÁ LA FLAG
+	buffer = malloc(BUFFER_SIZE);
 	if (buffer == NULL)
 	{
-		free(buffer); //AQUÍ DEBERÍA HACER UN FREE DE TODA LISTA***
-		return (-1);
+		free(buffer); //AQUÍ DEBERÍA HACER UN FREE DE TODA LISTA!!!!***
+		return (NULL);
 	}
-	printf("\n--->read_line<---\n");
-	printf("Buffer_size es: %i\n", BUFFER_SIZE);
 	read(fd, buffer, BUFFER_SIZE);
-	read_list->content = &buffer;
-	read_size += ft_strlen((char *) buffer);
-	printf("La string leída es: %s\n", buffer);
-	if (read_size == BUFFER_SIZE)
-	{
-		flag ++;
-		//flag = write_buffer(fd, flag);
-		//DEBERÍA HACER ALGO PARA AÑADIR UN NODO AL FINAL SI ES NECESARIO
-	}
-	return (flag);
+	return (buffer);
 }
+
+t_list	*distrib_buffer_in_nodes(char *buffer, t_list **list)
+{
+	char	*temp_buffer;
+	t_list	*temp_node_ptr;
+
+	temp_buffer = buffer;
+	(*list)->content = temp_buffer;
+	temp_node_ptr = ft_lstnew(NULL);
+	if (temp_node_ptr == NULL)
+	{
+		//FREEEEEEEEEEEEEE
+		return (NULL);
+	}
+	(*list)->next = temp_node_ptr;
+	return (*list);
+	//scan \n y demás (opción meter info de str en una struct???)
+}
+
+/*
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*str_result;
+
+	str_result = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (str_result == NULL)
+		return (NULL);
+	str_result = ft_memcpy(str_result, s1, ft_strlen(s1));
+	ft_strlcpy((str_result + ft_strlen(s1)), s2, ft_strlen(s2) + 1);
+	return (str_result);
+}*/
+
 
 /*
 ** FLAG:
@@ -75,14 +118,14 @@ hay que asegurarse que liberamos toda la memoria que hayamos podido coger antes
 // para compilar:
 //cc -Wall -Werror -Wextra -D BUFFER_SIZE=42 *.c *.h
 
-int	main(void)
-{
-	int		fd;
-	char	*random;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*random;
 
-	fd = open("leer.txt", O_RDONLY);
-	random = get_next_line(fd);
-	random = get_next_line(fd);
-	printf("%i\n", *random);
-	return (0);
-}
+// 	fd = open("leer.txt", O_RDONLY);
+// 	random = get_next_line(fd);
+// 	random = get_next_line(fd);
+// 	printf("%i\n", *random);
+// 	return (0);
+// }

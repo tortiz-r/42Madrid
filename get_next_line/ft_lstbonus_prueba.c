@@ -6,11 +6,11 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 14:43:17 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/11/28 16:22:19 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/12/06 21:08:49 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+//#include "libft.h"
 #include<stdio.h>
 #include <stdlib.h>
 #include<unistd.h>
@@ -20,6 +20,12 @@
 #define ROJO_T	"\x1b[31m"
 #define VERDE_T	"\x1b[32m"
 #define AZUL_T	"\x1b[34m"
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);

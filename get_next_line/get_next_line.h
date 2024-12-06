@@ -6,7 +6,7 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 12:28:35 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/11/28 16:46:44 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/12/06 22:17:52 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,15 @@ typedef struct s_list
 }					t_list;
 
 char				*get_next_line(int fd);
-int					write_buffer(int fd, int read_pos);
+char				*write_buffer(int fd, int write_buffer_calls,
+						t_list **read_list);
+void				distrib_buffer_in_nodes(char *buffer, t_list **list);
 
+
+int					ft_linelen(char *str, char end);
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
-void				ft_lstclear_num(t_list **lst, void (*del)(void*), size_t size);
-
+void				ft_lstadd_back(t_list **lst, t_list *new);
+void				ft_lstclear_num(t_list **lst, void (*del)(void*),
+						size_t size);
 #endif
