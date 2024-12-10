@@ -15,6 +15,76 @@
 // 	}
 // }
 
+// char	*write_buffer(int fd)
+// {
+// 	char	*buffer;
+
+// 	buffer = malloc(BUFFER_SIZE);
+// 	if (buffer == NULL)
+// 	{
+// 		free(buffer); //AQUÍ DEBERÍA HACER UN FREE DE LA STRUCT ENTERA!!!!***
+// 		return (NULL);
+// 	}
+// 	read(fd, buffer, BUFFER_SIZE);
+// 	return (buffer);
+// }
+
+/*
+GNL
+if (gnl_calls == 0)
+	//HACER TODO DESDE CERO
+else if (lines_read->content == NULL && gnl_calls != 0)
+	// 	return (NULL); //no hay nada más que leer
+	// if (ft_lstsize(lines_read) > 2)
+	// {
+	// 	temp_ptr = lines_read->next;
+	// 	ft_lstclear_num(&lines_read, 1); //eliminar 1º nodo
+	// 	lines_read = temp_ptr;
+	// 	return (lines_read->content);
+	// }
+	// else if (ft_lstsize(lines_read) == 2)
+	// 	{
+	// //eliminar el primer nodo (linea devuelta antes) y mod lines_read_list
+	// cuando tenga \n\0 en buffer, creo otro nodo con null content.
+	// 		//miro si es NULL o no (atención al caso de no \n sí \0!!)
+	// 		//no:
+	// 			//write_buffer
+	// 			//scan cuantas \n tengo (atención al \0!!!!!!!)
+	// 			meter cada trocito de buffer en su nodo adecuado y free(buffer)
+	// 			atención, poner un \0 al final si no hay \n!!!!
+*/
+
+/*EW CAMBIAR ESTO (hacer ft_lstsize y ft_linelen)
+//en int 0 == '\0' y 10 = '\n'
+//me devuelve -1 si no tiene \n y encima es más peq que buffer_size
+
+int	ft_size(int inp, void *ptr, int end)
+{
+	int				len;
+	t_line_utils	*current_ptr;
+
+	len = 0;
+	current_ptr = ptr;
+	if (inp == 3)
+	{
+		while (current_ptr != NULL)
+		{
+			current_ptr = current_ptr->next;
+			len++;
+		}
+	}
+	if (inp == 1 || inp == 2)
+	{
+		while ((char *)(ptr + len) != end && (char *)(ptr + len) != (-2 + inp))
+			len++;
+	}
+	if ((inp == 1 || inp == 2) && len == BUFFER_SIZE)
+		return (-1);
+	if ((inp == 1 || inp == 2) && len < BUFFER_SIZE)
+		return (-2);
+	return (len);
+}*/
+
 /*
 char	*write_buffer(int fd, int write_buffer_calls, t_list **read_list)
 {
