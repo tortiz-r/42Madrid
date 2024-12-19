@@ -1,7 +1,9 @@
 //# include "get_next_line.h"
 # include <unistd.h>
-# include <stdio.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 #define RESET_COLOR	"\x1b[0m"
 #define MAGENTA_T  "\x1b[35m"
@@ -9,9 +11,23 @@
 #define VERDE_T	"\x1b[32m"
 #define AZUL_T	"\x1b[34m"
 
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 80
+#endif
+
 /***********TEST DE LINE_FUSION***********/
 
-
+typedef struct s_line_utils_struct
+{
+	int							fd;
+	int							c_status;
+	int							l_status;
+	int							f_status;
+	int							bytes_read;
+	char						*l_compl;
+	char						*l_rem;
+	struct s_line_utils_struct	*next;
+}								t_line_obj;
 // char	*ft_linefusion(char *line1, char *line2, int line2_len);
 // int 	ft_linelen(char *str, int end, int str_len);
 
@@ -77,15 +93,68 @@ char	*ft_linefusion(char *line1, char *line2, int line2_len)
 	line_result[i + 1] = '\0';
 	return (line_result);
 }
+//lee el contenido de fd (buffer_size) y lo escribe en *buffer
+char	*write_buffer(int fd, t_line_obj *line_utils)
+{
+	printf(AZUL_T"--->WRITE_BUFFER<---\n"RESET_COLOR);
+	char	*buffer;
+
+	buffer = malloc(BUFFER_SIZE);
+	if (buffer == NULL)
+	{
+		free(buffer); //AQUÍ DEBERÍA HACER UN FREE DE LA STRUCT ENTERA!!!!***
+		return (NULL);
+	}
+	line_utils->bytes_read= read(fd, buffer, BUFFER_SIZE);
+	printf(VERDE_T"bytes_read = %i\n"RESET_COLOR, line_utils->bytes_read);
+	return (buffer);
+}
+
+char	*distrib_buffer(int optn, char *buffer, t_line_obj *l_obj)
+{
+	int				len_buf;
+	int				len_compl;
+	int				len_rem;
+
+	len_buf = l_obj->bytes_read;
+	len_compl = ft_linelen(buffer, '\n', len_buf);
+	len_rem = len_buf - len_compl;
+	l_obj->l_compl = ft_linefusion(l_obj->l_compl, buffer, len_compl);
+	l_obj->l_rem = ft_linefusion(l_obj->l_rem, buffer+len_compl,len_rem);
+	if (optn == 1)
+		free(buffer);
+	return (l_obj->l_compl);
+}
 
 int main(void)
 {
+	int			i;
+	int			fd;
 	int			len;
 	char		*line1;
 	char		*line2;
 	char		*result;
+	char		*buffer;
+	t_line_obj	line_obj = {0, -1, 0, 1, 0, NULL, NULL, NULL};
 
+	
+	i = 0;
+	fd = open("read_txt_short.txt", O_RDONLY);
 
+	buffer = write_buffer(fd, &line_obj);
+	if (buffer == 0)
+	{
+		line_obj.c_status = 0;
+		return (0); //TENDRÍA QUE FREE STRUCT Y POSIBLES SIG NODOS!!!
+	}
+	result = distrib_buffer(1, buffer, &line_obj);
+	printf(VERDE_T"Line_obj.l_complete es:\n"MAGENTA_T"%s\n"RESET_COLOR, line_obj.l_compl);
+	printf(VERDE_T"tamaño de string: %d\n"RESET_COLOR, ft_linelen(line_obj.l_compl, '\0', 30));
+	printf(VERDE_T"Line_obj.l_remainder es:\n"MAGENTA_T"%s\n"RESET_COLOR, line_obj.l_rem);
+	printf(VERDE_T"tamaño de string: %d\n"RESET_COLOR, ft_linelen(line_obj.l_rem, '\0', 53));
+	printf("result es %s\n", result);
+
+	//prueba solo line fusion:
 	line1 = malloc(5);
 	line1[0] = 'h';
 	line1[1] = 'o';
@@ -99,8 +168,10 @@ int main(void)
 	line2[5] = '\0';
 	len = ft_linelen(line2, '!', 6);
 	printf("len es %i\n", len);
+
 	result = ft_linefusion(line1, line2, len);
 	printf("el resultado es: %s\n", result);
+
 	return (0);
 }
 

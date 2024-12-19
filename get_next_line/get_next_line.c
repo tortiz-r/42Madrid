@@ -6,7 +6,7 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 12:27:07 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/12/19 17:22:29 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:30:43 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,17 @@
 
 char	*get_next_line(int fd)
 {
-	static t_line_obj	line_obj = {0, 0, -1, 0, NULL, NULL, NULL};
-	int					actual_fd;
+	static t_line_obj	line_obj = {0, -1, 0, 1, 0, NULL, NULL, NULL};
 	char				*buffer;
 	char				*check_distrib;
 
-	if (line_obj.read_status == -1)
+	line_obj.fd = fd;
+	if (line_obj.c_status == -1)
 	{
-		actual_fd = fd;
-		line_obj.fd = actual_fd;
 		buffer = write_buffer(fd, &line_obj);
 		if (buffer == NULL)
 		{
-			line_obj.read_status = 0;
+			line_obj.c_status = 0;
 			return (NULL); //TENDRÍA QUE FREE STRUCT Y POSIBLES SIG NODOS!!!
 		}
 			check_distrib = distrib_buffer(1, buffer, &line_obj);
@@ -61,6 +59,11 @@ char	*write_buffer(int fd, t_line_obj *line_utils)
 		return (NULL);
 	}
 	line_utils->bytes_read= read(fd, buffer, BUFFER_SIZE);
+	if (line_utils->bytes_read == 0)
+	{
+		free (buffer);
+		return (NULL);
+	}
 	return (buffer);
 }
 
@@ -70,16 +73,9 @@ char	*distrib_buffer(int optn, char *buffer, t_line_obj *l_obj)
 	int				len_compl;
 	int				len_rem;
 
-	// len_buf = ft_linelen(buffer, '\0');
 	len_buf = l_obj->bytes_read;
 	len_compl = ft_linelen(buffer, '\n', len_buf);
 	len_rem = len_buf - len_compl;
-	// l_obj->l_compl = malloc(len_compl + 1);
-	// if (l_obj->l_compl == NULL)
-	// {
-	// 	//HAY QUE LIBERAR COSIS
-	// 	return (NULL);
-	// }
 	l_obj->l_compl = ft_linefusion(l_obj->l_compl, buffer, len_compl);
 	l_obj->l_rem = ft_linefusion(l_obj->l_rem, buffer+len_compl,len_rem);
 	if (optn == 1)

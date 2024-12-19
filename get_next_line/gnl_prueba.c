@@ -6,7 +6,7 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 12:01:18 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/12/19 17:32:21 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:42:35 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*get_next_line(int fd)
 	char				*buffer;
 	char				*check_distrib;
 
-	if (line_obj.read_status == -1)
+	if (line_obj.c_status == -1)
 	{
 		actual_fd = fd;
 		line_obj.fd = actual_fd;
@@ -87,7 +87,7 @@ char	*get_next_line(int fd)
 		buffer = write_buffer(fd, &line_obj);
 		if (buffer == NULL)
 		{
-			line_obj.read_status = 0;
+			line_obj.c_status = 0;
 			return (NULL); //TENDRÍA QUE FREE STRUCT Y POSIBLES SIG NODOS!!!
 		}
 		printf("------- Llamamos a distrib_buffer con buffer:\n" RESET_COLOR);
@@ -272,7 +272,7 @@ t_list	*write_to_buffer(int fd, t_list **read_node)
 
 /*------------------------- FUNCIONES LST ---------------------------*/
 
-t_line_obj	*ft_lstnew(int fd, int read_status, int line_status)
+t_line_obj	*ft_lstnew(int fd, int c_status, int line_status)
 {
 	t_line_obj	*node;
 
@@ -280,7 +280,7 @@ t_line_obj	*ft_lstnew(int fd, int read_status, int line_status)
 	if (node == NULL)
 		return (NULL);
 	node->fd = fd;
-	node->read_status = read_status;
+	node->c_status = c_status;
 	node->line_status = line_status;
 	node->l_compl = NULL;
 	node->l_compl = NULL;

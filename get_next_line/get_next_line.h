@@ -6,7 +6,7 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 12:28:35 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/12/19 17:15:37 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:32:21 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 typedef struct s_line_utils_struct
 {
 	int							fd;
+	int							c_status;
+	int							l_status;
+	int							f_status;
 	int							bytes_read;
-	int							read_status;
-	int							line_status;
 	char						*l_compl;
 	char						*l_rem;
-	struct s_line_utils_struct	*next;z
-
+	struct s_line_utils_struct	*next;
 }								t_line_obj;
 
 typedef struct s_list
