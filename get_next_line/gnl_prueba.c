@@ -6,11 +6,11 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 12:01:18 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/12/10 19:23:06 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:32:21 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "get_next_line.h"
+# include "get_next_line.h"
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -29,41 +29,6 @@
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 80
 #endif
-
-typedef struct s_line_utils_struct
-{
-	int							fd;
-	int							bytes_read;
-	int							read_status;
-	int							line_status;
-	char						*l_compl;
-	char						*l_rem;
-	struct s_line_utils_struct	*next;
-
-}								t_line_obj;
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}					t_list;
-
-char				*get_next_line(int fd);
-char				*write_buffer(int fd, t_line_obj *line_utils);
-char				*distrib_buffer(int optn, char *buffer, 
-						t_line_obj *line_obj);
-int					check_line(t_line_obj *line_obj);
-
-
-// char				*write_distrib_buffer(int fd, t_line_obj *line_utils);
-
-t_line_obj			*ft_lstnew(int fd, int read_status, int line_status);
-void				ft_lstadd_back(t_line_obj *lst, t_line_obj *new_node);
-void				ft_lstclear_num(t_list **lst, void (*del)(void*),
-						size_t size);
-int					ft_lstsize(t_line_obj *lst);
-char				*write_buffer(int fd, t_line_obj *line_utils);
-char				*ft_linefusion(char *line1, char *line2, int len);
 
 int	main(void)
 {
@@ -107,41 +72,43 @@ int	main(void)
 }
 
 /*------------------------- FUNCIONES A TESTEAR ---------------------------*/
-
 char	*get_next_line(int fd)
 {
-	static t_line_obj	line_utils = {0, -1, 0, NULL, NULL, NULL};
+	static t_line_obj	line_obj = {0, 0, -1, 0, NULL, NULL, NULL};
 	int					actual_fd;
-	// char				*line_compl;
-	// char				*line_rem;
-	// int					size;
 	char				*buffer;
-	char				*check_ptr;
+	char				*check_distrib;
 
-	if (line_utils.read_status == -1)
+	if (line_obj.read_status == -1)
 	{
 		actual_fd = fd;
-		line_utils.fd = actual_fd;
-	printf(AZUL_T"------- Llamamos a write_buffer 1 vez\n" RESET_COLOR);
-		buffer = write_buffer(fd, &line_utils);
+		line_obj.fd = actual_fd;
+		printf("------- Llamamos a write_buffer 1 vez\n" RESET_COLOR);
+		buffer = write_buffer(fd, &line_obj);
 		if (buffer == NULL)
+		{
+			line_obj.read_status = 0;
 			return (NULL); //TENDRÍA QUE FREE STRUCT Y POSIBLES SIG NODOS!!!
-	printf(AZUL_T"------- Llamamos a write_buffer 1 vez\n" RESET_COLOR);
-	printf(VERDE_T"El buffer es:\n"MAGENTA_T"%s\n"RESET_COLOR, buffer);
-	printf(AZUL_T"------- Llamo a distrib_buffer\n" RESET_COLOR);
-		check_ptr = distrib_buffer_in_strings(buffer, &line_utils);
-		if (check_ptr == NULL)
+		}
+		printf("------- Llamamos a distrib_buffer con buffer:\n" RESET_COLOR);
+		printf(VERDE_T"%s\n"RESET_COLOR, buffer);
+			check_distrib = distrib_buffer(1, buffer, &line_obj);
+	printf(VERDE_T"Line_obj.l_complete es:\n"MAGENTA_T"%s\n"RESET_COLOR, line_obj.l_compl);
+	printf(VERDE_T"tamaño de string: %d\n"RESET_COLOR, ft_linelen(line_obj.l_compl, '\0', 30));
+	printf(VERDE_T"Line_obj.l_remainder es:\n"MAGENTA_T"%s\n"RESET_COLOR, line_obj.l_rem);
+	printf(VERDE_T"tamaño de string: %d\n"RESET_COLOR, ft_linelen(line_obj.l_rem, '\0', 53));
+		if (check_distrib == NULL)
 			return (NULL); //FREE COSIS
-	printf(VERDE_T"El linelen del buffer corresp es: %i\n" RESET_COLOR, ft_linelen(buffer,'\n'));
-	printf(VERDE_T"Line_utils.line_complete es:\n"MAGENTA_T"%s\n"RESET_COLOR, line_utils.l_compl);
-	printf(VERDE_T"Line_utils.line_remainder es:\n"MAGENTA_T"%s\n"RESET_COLOR, line_utils.l_rem);
-	// line_compl = line_utils.l_compl;
 	}
-	return (line_utils.l_compl);
+	if (check_line(&line_obj) != 1)
+		printf(VERDE_T"Check_line da 0\n"RESET_COLOR);
+	return (line_obj.l_compl);
 }
 
+//lee el contenido de fd (buffer_size) y lo escribe en *buffer
 char	*write_buffer(int fd, t_line_obj *line_utils)
 {
+	printf(AZUL_T"--->WRITE_BUFFER<---\n"RESET_COLOR);
 	char	*buffer;
 
 	buffer = malloc(BUFFER_SIZE);
@@ -150,39 +117,59 @@ char	*write_buffer(int fd, t_line_obj *line_utils)
 		free(buffer); //AQUÍ DEBERÍA HACER UN FREE DE LA STRUCT ENTERA!!!!***
 		return (NULL);
 	}
-	read(fd, buffer, BUFFER_SIZE);
+	line_utils->bytes_read= read(fd, buffer, BUFFER_SIZE);
+	printf(VERDE_T"bytes_read = %i\n"RESET_COLOR, line_utils->bytes_read);
 	return (buffer);
 }
-
-char	*distrib_buffer_in_strings(char *buf, t_line_obj *line_utils)
+char	*distrib_buffer(int optn, char *buffer, t_line_obj *l_obj)
 {
-	// char			*temp_buf;
+	printf(AZUL_T"--->DISTRIB__BUFFER<---\n"RESET_COLOR);
 	int				len_buf;
 	int				len_compl;
 	int				len_rem;
 
-	len_buf = ft_linelen(buf, '\0');
-	len_compl = ft_linelen(buf, '\n');
-	printf(VERDE_T"La variable len_buf es: %i\n", len_buf);
-	printf(VERDE_T"La variable len_compl es: %i\n", len_compl);
+	len_buf = l_obj->bytes_read;
+	len_compl = ft_linelen(buffer, '\n', len_buf);
 	len_rem = len_buf - len_compl;
-	printf(VERDE_T"La variable len_rem es: %i\n", len_rem);
-	// line_utils->l_compl = malloc(len_compl + 1);
-	// if (line_utils->l_compl == NULL)
-	// {
-	// 	//HAY QUE LIBERAR COSIS
-	// 	return (NULL);
-	// }
-	line_utils->l_compl = ft_linefusion(line_utils->l_compl, buf, len_compl);
-	line_utils->l_rem = ft_linefusion(line_utils->l_rem, buf+len_compl,len_rem);
-	printf("pre-buf\n");
-	free(buf);
-	printf("post-buf\n");
-	return (line_utils->l_compl);
+	printf(AZUL_T"-----fusiono en l_compl\n"RESET_COLOR);
+	l_obj->l_compl = ft_linefusion(l_obj->l_compl, buffer, len_compl);
+	printf(AZUL_T"-----fusiono en l_rem\n"RESET_COLOR);
+	l_obj->l_rem = ft_linefusion(l_obj->l_rem, buffer+len_compl,len_rem);
+	if (optn == 1)
+		free(buffer);
+	return (l_obj->l_compl);
 }
-
-char	*ft_linefusion(char *line1, char *line2, int len)
+//si LINE_STATUS == 1, elimino l_compl pq ya la he pasado antes
+//si LINE_STATUS == 0, es que me toca comprobar la línea l_compl 1º
+//busco si tiene un /n (no busco más alla que bytes_read o si == )
+int	check_line(t_line_obj *line_obj)
 {
+	printf(AZUL_T"--->CHECK_LINE<---\n"RESET_COLOR);
+	int	i;
+
+	i = 0;
+	if (line_obj->line_status == 1)
+		free(line_obj->l_compl);
+	if (line_obj->line_status == 0)
+	{
+		while (*(line_obj->l_compl + i) != '\n')
+			i++;
+		printf("el valor de i es %i\n", i);
+		printf("el valor de  len_l_compl -1 es %i\n", (ft_linelen(line_obj->l_compl, 0, line_obj->bytes_read) - 1));
+		if (i + 1 == ft_linelen(line_obj->l_compl, 0, line_obj->bytes_read) - 1)
+		{
+			line_obj->line_status = 1;
+		}
+	}
+	return (line_obj->line_status);
+
+}
+//cocatena line2len chars de line2 en line1
+//haciendo malloc para result y free a line1
+//line2len es el numchar a fusionar (linelen(end, bytes_read))
+char	*ft_linefusion(char *line1, char *line2, int line2_len)
+{
+	printf(AZUL_T"--->LINE_FUSION<---\n"RESET_COLOR);
 	char	*line_result;
 	int		i;
 	int		j;
@@ -190,14 +177,13 @@ char	*ft_linefusion(char *line1, char *line2, int len)
 
 	i = 0;
 	j = 0;
-	printf(AZUL_T"Me meto en linefusion!! :) \n"RESET_COLOR);
-	// printf(VERDE_T"Line1 es:\n"MAGENTA_T"%s\n", line1);
-	//printf(VERDE_T"Line2 es:\n"MAGENTA_T"%s\n", line2);
-	line1_len = ft_linelen(line1, 0);
+	printf(VERDE_T"Line1 es:\n"MAGENTA_T"%s\n", line1);
+	printf(VERDE_T"Line2 es:\n"MAGENTA_T"%s\n", line2);
+	line1_len = ft_linelen(line1, '\0', -1);
 	printf(VERDE_T"La variable line1_len es: %i\n", line1_len);
-	printf(VERDE_T"La variable input len es: %i\n", len);
-	line_result = malloc(line1_len + len + 1);
-	printf("El malloc que he hecho es de %i\n", line1_len + len + 1);
+	printf(VERDE_T"La variable input len es: %i\n", line2_len);
+	line_result = malloc(line1_len + line2_len - 1 + 1);
+	printf("El malloc que he hecho es de %i\n", line1_len + line2_len + 1);
 	if (line_result == NULL)
 		return (NULL);
 	while (i < line1_len)
@@ -205,9 +191,8 @@ char	*ft_linefusion(char *line1, char *line2, int len)
 		line_result[i] = line1[i];
 		i++;
 	}
-	printf("hooooolaaaaaa\n");
 	free(line1);
-	while (i < line1_len + len && line2[j] != '\0')
+	while (i < line1_len + line2_len && line2[j] != '\0')
 	{
 		line_result[i] = line2[j];
 		i++;
@@ -217,31 +202,33 @@ char	*ft_linefusion(char *line1, char *line2, int len)
 	return (line_result);
 }
 
-int ft_linelen(char *str, int end)
+//estoy haciendo lengths, no iterador!! "hola" da 5!!!
+int ft_linelen(char *str, int end, int str_len)
 {
+	//printf(AZUL_T"--->LINE_LEN<---\n"RESET_COLOR);
 	int	size;
 	int	flag;
 
-	size = 0;
+	size = 0; 
 	flag = 0;
-	printf(VERDE_T"me meto en ft_linelen\n");
 	if (str == NULL)
 		return (0);
-	while (str[size] != '\0' && flag == 0)
+	if (str_len < 0)
 	{
-		if (str[size] == end)
-			flag = 1;
+		while (str[size] != end && str[size] != '\0')
 		size++;
 	}
-	// if (flag == 1 && size < BUFFER_SIZE)
-	// 	return (-1);
-	// if (flag == 0 && size == 0)
-	// 	return (-3);
-	// if (flag == 0 && size < BUFFER_SIZE)
-	// 	return (-2);
+	else
+	{
+		while (size < str_len && str[size] != '\0' && flag == 0)
+		{
+			if (str[size] == end)
+				flag = 1;
+			size++;
+		}
+	}
 	return (size);
 }
-
 /*
 t_list	*write_to_buffer(int fd, t_list **read_node)
 {

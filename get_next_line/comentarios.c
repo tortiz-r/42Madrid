@@ -1,3 +1,63 @@
+
+char	*write_distrib_buffer(int fd, t_line_obj *line_obj)
+{
+	char			*buffer;
+	int				len_buf;
+	int				len_compl;
+	int				len_rem;
+
+	buffer = malloc(BUFFER_SIZE);
+	if (buffer == NULL)
+	{
+		free(buffer); //AQUÍ DEBERÍA HACER UN FREE DE LA STRUCT ENTERA!!!!***
+		return (NULL);
+	}
+	read(fd, buffer, BUFFER_SIZE);
+	len_buf = ft_linelen(buffer, '\0');
+	len_compl = ft_linelen(buffer, '\n');
+	len_rem = len_buf - len_compl;
+	line_obj->l_compl = malloc(len_compl + 1);
+	if (line_obj->l_compl == NULL)
+	{
+		//HAY QUE LIBERAR COSIS
+		return (NULL);
+	}
+	line_obj->l_compl = ft_linefusion(line_obj->l_compl, buffer, len_compl);
+	line_obj->l_rem = ft_linefusion(line_obj->l_rem, buffer+len_compl, len_rem);
+	free(buffer);
+	return (line_obj->l_compl);
+}
+
+
+char	*distrib_buffer_in_strings(char *buf, t_line_obj *line_utils)
+{
+	// char			*temp_buf;
+	int				len_buf;
+	int				len_compl;
+	int				len_rem;
+
+	len_buf = ft_linelen(buf, '\0');
+	len_compl = ft_linelen(buf, '\n');
+	printf(VERDE_T"La variable len_buf es: %i\n", len_buf);
+	printf(VERDE_T"La variable len_compl es: %i\n", len_compl);
+	len_rem = len_buf - len_compl;
+	printf(VERDE_T"La variable len_rem es: %i\n", len_rem);
+	// line_utils->l_compl = malloc(len_compl + 1);
+	// if (line_utils->l_compl == NULL)
+	// {
+	// 	//HAY QUE LIBERAR COSIS
+	// 	return (NULL);
+	// }
+	line_utils->l_compl = ft_linefusion(line_utils->l_compl, buf, len_compl);
+	line_utils->l_rem = ft_linefusion(line_utils->l_rem, buf+len_compl,len_rem);
+	printf("pre-buf\n");
+	free(buf);
+	printf("post-buf\n");
+	return (line_utils->l_compl);
+}
+
+
+
 // void	ft_lstclear_num(t_list **lst, size_t size)
 // {
 // 	t_list	*next_node_ptr;
@@ -121,9 +181,30 @@ char	*write_buffer(int fd, int write_buffer_calls, t_list **read_list)
 }*/
 
 
+/************* Funciones lst que creo que no usaré ***************/
 
+// void	ft_lstadd_back(t_line_obj *lst, t_line_obj *new_node)
+// {
+// 	t_line_obj	*last_ptr;
+// 	int				i;
 
-
+// 	if (lst != NULL && new_node != NULL)
+// 	{
+// 		if (lst == NULL)
+// 			lst = new_node;
+// 		else
+// 		{
+// 			last_ptr = lst;
+// 			i = 1;
+// 			while (i < ft_lstsize(lst))
+// 			{
+// 				last_ptr = last_ptr->next;
+// 				i++;
+// 			}
+// 			last_ptr->next = new_node;
+// 		}
+// 	}
+// }
 
 // t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 // {

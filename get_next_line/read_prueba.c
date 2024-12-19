@@ -6,11 +6,11 @@
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 12:01:18 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/12/10 15:24:37 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2024/12/19 11:58:10 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "get_next_line.h"
+# include "get_next_line.h"
 
 # include <unistd.h>
 # include <stdlib.h>

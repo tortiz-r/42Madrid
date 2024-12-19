@@ -48,28 +48,31 @@ int		ft_lstsize(t_line_obj *lst)
 	}
 	return (size);
 }
-
-void	ft_lstadd_back(t_line_obj *lst, t_line_obj *new_node)
+//estoy haciendo lengths, no iterador!! "hola" da 5!!!
+int ft_linelen(char *str, int end, int str_len)
 {
-	t_line_obj	*last_ptr;
-	int				i;
+	int	size;
+	int	flag;
 
-	if (lst != NULL && new_node != NULL)
+	size = 0; 
+	flag = 0;
+	if (str == NULL)
+		return (0);
+	if (str_len < 0)
 	{
-		if (lst == NULL)
-			lst = new_node;
-		else
+		while (str[size] != end && str[size] != '\0')
+		size++;
+	}
+	else
+	{
+		while (size < str_len && str[size] != '\0' && flag == 0)
 		{
-			last_ptr = lst;
-			i = 1;
-			while (i < ft_lstsize(lst))
-			{
-				last_ptr = last_ptr->next;
-				i++;
-			}
-			last_ptr->next = new_node;
+			if (str[size] == end)
+				flag = 1;
+			size++;
 		}
 	}
+	return (size);
 }
 
 // char	*ft_substr(char *s, unsigned int start, size_t len)
@@ -92,3 +95,35 @@ void	ft_lstadd_back(t_line_obj *lst, t_line_obj *new_node)
 // 	}
 // 	return (substr);
 // }
+
+
+/*
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*str_result;
+
+	str_result = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (str_result == NULL)
+		return (NULL);
+	str_result = ft_memcpy(str_result, s1, ft_strlen(s1));
+	ft_strlcpy((str_result + ft_strlen(s1)), s2, ft_strlen(s2) + 1);
+	return (str_result);
+}*/
+
+/*
+void	ft_lstclear_num(t_line_obj **lst, void (*del)(void*), size_t size)
+{
+	t_line_obj	*next_node_ptr;
+	size_t	i_clear;
+
+	next_node_ptr = *lst;
+	i_clear = 0;
+	while (*lst != NULL && i_clear < size)
+	{
+		del((*lst)->content);
+		next_node_ptr = (*lst)->next;
+		free(*lst);
+		*lst = next_node_ptr;
+		i_clear++;
+	}
+}*/
