@@ -77,8 +77,8 @@ re:	fclean clean
 .PHONY: all bonus clean fclean re
 
 
-Debería hacer:
-primero transforma la libft a un .a
-luego crea la libftprintf.a (o libftprintf_bonus.a)
-metiendo los archivos de src pasados a .o
-y también mete la lib
+#Debería hacer:
+#primero transforma la libft a un .a
+#luego crea la libftprintf.a (o libftprintf_bonus.a)
+#metiendo los archivos de src pasados a .o
+#y también mete la lib
