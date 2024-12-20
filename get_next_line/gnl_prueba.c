@@ -74,34 +74,44 @@ int	main(void)
 /*------------------------- FUNCIONES A TESTEAR ---------------------------*/
 char	*get_next_line(int fd)
 {
-	static t_line_obj	line_obj = {0, 0, -1, 0, NULL, NULL, NULL};
-	int					actual_fd;
+	static t_line_obj	line_obj = {0, -1, 0, 1, 0, NULL, NULL, NULL};
 	char				*buffer;
-	char				*check_distrib;
+	char				*check_malloc;
 
-	if (line_obj.c_status == -1)
+	line_obj.fd = fd;
+	if (line_obj.l_compl == 0  && line_obj.c_status == 1)
 	{
-		actual_fd = fd;
-		line_obj.fd = actual_fd;
-		printf("------- Llamamos a write_buffer 1 vez\n" RESET_COLOR);
-		buffer = write_buffer(fd, &line_obj);
-		if (buffer == NULL)
+		free(line_obj.l_compl);
+		line_obj.f_status = -1;
+	}
+	if (line_obj.f_status == -1)
+		return (NULL);
+	while (line_obj.l_status == 0)
+	{
+		if (line_obj.l_rem == NULL) //si l_rem está vacía
 		{
-			line_obj.c_status = 0;
-			return (NULL); //TENDRÍA QUE FREE STRUCT Y POSIBLES SIG NODOS!!!
+			if (line_obj.f_status == 0)
+				return (line_obj.l_compl);
+	printf("------- Llamamos a write_buffer 1 vez\n" RESET_COLOR);
+			buffer = write_buffer(fd, &line_obj);
+			if (buffer == NULL)
+			{
+				line_obj.f_status = -1;
+				return (NULL); //TENDRÍA QUE FREE STRUCT Y POSIBLES SIG NODOS!!!
+			}
 		}
-		printf("------- Llamamos a distrib_buffer con buffer:\n" RESET_COLOR);
-		printf(VERDE_T"%s\n"RESET_COLOR, buffer);
-			check_distrib = distrib_buffer(1, buffer, &line_obj);
+	printf("------- Llamamos a distrib_buffer con buffer:\n" RESET_COLOR);
+	printf(VERDE_T"%s\n"RESET_COLOR, buffer);
+		check_malloc = distrib_buffer(1, buffer, &line_obj);
 	printf(VERDE_T"Line_obj.l_complete es:\n"MAGENTA_T"%s\n"RESET_COLOR, line_obj.l_compl);
 	printf(VERDE_T"tamaño de string: %d\n"RESET_COLOR, ft_linelen(line_obj.l_compl, '\0', 30));
 	printf(VERDE_T"Line_obj.l_remainder es:\n"MAGENTA_T"%s\n"RESET_COLOR, line_obj.l_rem);
 	printf(VERDE_T"tamaño de string: %d\n"RESET_COLOR, ft_linelen(line_obj.l_rem, '\0', 53));
-		if (check_distrib == NULL)
+		if (check_malloc == NULL)
 			return (NULL); //FREE COSIS
+		if (check_line(&line_obj) != 1)
+			printf(VERDE_T"Check_line da 0\n"RESET_COLOR);
 	}
-	if (check_line(&line_obj) != 1)
-		printf(VERDE_T"Check_line da 0\n"RESET_COLOR);
 	return (line_obj.l_compl);
 }
 

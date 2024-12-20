@@ -27,30 +27,42 @@ char	*get_next_line(int fd)
 {
 	static t_line_obj	line_obj = {0, -1, 0, 1, 0, NULL, NULL, NULL};
 	char				*buffer;
-	char				*check_distrib;
+	char				*check_malloc;
 
 	line_obj.fd = fd;
-	if (line_obj.c_status == 1)
+	if (line_obj.l_compl == 0  && line_obj.c_status == 1)
+	{
+		free(line_obj.l_compl);
+		line_obj.f_status = -1;
+	}
+	if (line_obj.f_status == -1)
+		return (NULL);
+	while (line_obj.l_status == 0)
+	{
+		if (line_obj.l_rem == NULL) //si l_rem está vacía
+		{
+			if (line_obj.f_status == 0)
+				return (line_obj.l_compl);
+			buffer = write_buffer(fd, &line_obj);
+			if (buffer == NULL)
+			{
+				line_obj.f_status = -1;
+				return (NULL); //TENDRÍA QUE FREE STRUCT Y POSIBLES SIG NODOS!!!
+			}
+		}
+		check_malloc = distrib_buffer(1, buffer, &line_obj);
+		if (check_malloc == NULL)
+			return (NULL); //FREE COSIS
+		if (check_line(&line_obj) != 1)
+			printf(VERDE_T"Check_line da 0\n"RESET_COLOR);
+	}
+	return (line_obj.l_compl);
+}
+	/*if (line_obj.c_status == 1)
 	{	
 		free(line_obj.l_compl);
 		line_obj.c_status = 0;
-	}	
-	if (line_obj.c_status == 0)
-	{
-		buffer = write_buffer(fd, &line_obj);
-		if (buffer == NULL)
-		{
-			line_obj.c_status = 0;
-			return (NULL); //TENDRÍA QUE FREE STRUCT Y POSIBLES SIG NODOS!!!
-		}
-			check_distrib = distrib_buffer(1, buffer, &line_obj);
-		if (check_distrib == NULL)
-			return (NULL); //FREE COSIS
-	}
-	if (check_line(&line_obj) != 1)
-		printf(VERDE_T"Check_line da 0\n"RESET_COLOR);
-	return (line_obj.l_compl);
-}
+	}*/
 
 //lee el contenido de fd (buffer_size) y lo escribe en *buffer
 char	*write_buffer(int fd, t_line_obj *line_utils)
