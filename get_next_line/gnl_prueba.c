@@ -166,7 +166,7 @@ int	check_line(t_line_obj *line_obj)
 			i++;
 		printf("el valor de i es %i\n", i);
 		printf("el valor de  len_l_compl -1 es %i\n", (ft_linelen(line_obj->l_compl, 0, line_obj->bytes_read) - 1));
-		if (i + 1 == ft_linelen(line_obj->l_compl, 0, line_obj->bytes_read) - 1)
+		if (i == ft_linelen(line_obj->l_compl, 0, line_obj->bytes_read) - 1)
 		{
 			line_obj->l_status = 1;
 		}
