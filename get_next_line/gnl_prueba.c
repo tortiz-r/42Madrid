@@ -149,8 +149,8 @@ char	*distrib_buffer(int optn, char *buffer, t_line_obj *l_obj)
 		free(buffer);
 	return (l_obj->l_compl);
 }
-//si LINE_STATUS == 1, elimino l_compl pq ya la he pasado antes
-//si LINE_STATUS == 0, es que me toca comprobar la línea l_compl 1º
+//si l_status == 1, elimino l_compl pq ya la he pasado antes
+//si l_status == 0, es que me toca comprobar la línea l_compl 1º
 //busco si tiene un /n (no busco más alla que bytes_read o si == )
 int	check_line(t_line_obj *line_obj)
 {
@@ -158,9 +158,9 @@ int	check_line(t_line_obj *line_obj)
 	int	i;
 
 	i = 0;
-	if (line_obj->line_status == 1)
+	if (line_obj->l_status == 1)
 		free(line_obj->l_compl);
-	if (line_obj->line_status == 0)
+	if (line_obj->l_status == 0)
 	{
 		while (*(line_obj->l_compl + i) != '\n')
 			i++;
@@ -168,10 +168,10 @@ int	check_line(t_line_obj *line_obj)
 		printf("el valor de  len_l_compl -1 es %i\n", (ft_linelen(line_obj->l_compl, 0, line_obj->bytes_read) - 1));
 		if (i + 1 == ft_linelen(line_obj->l_compl, 0, line_obj->bytes_read) - 1)
 		{
-			line_obj->line_status = 1;
+			line_obj->l_status = 1;
 		}
 	}
-	return (line_obj->line_status);
+	return (line_obj->l_status);
 
 }
 //cocatena line2len chars de line2 en line1
@@ -282,7 +282,7 @@ t_list	*write_to_buffer(int fd, t_list **read_node)
 
 /*------------------------- FUNCIONES LST ---------------------------*/
 
-t_line_obj	*ft_lstnew(int fd, int c_status, int line_status)
+t_line_obj	*ft_lstnew(int fd, int c_status, int l_status)
 {
 	t_line_obj	*node;
 
@@ -291,7 +291,7 @@ t_line_obj	*ft_lstnew(int fd, int c_status, int line_status)
 		return (NULL);
 	node->fd = fd;
 	node->c_status = c_status;
-	node->line_status = line_status;
+	node->l_status = l_status;
 	node->l_compl = NULL;
 	node->l_compl = NULL;
 	node->next = NULL;
