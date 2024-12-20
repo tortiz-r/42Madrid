@@ -88,7 +88,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (line_obj.l_status == 0)
 	{
-		if (line_obj.l_rem == NULL) //si l_rem está vacía
+		if (line_obj.l_rem == "") //si l_rem está vacía
 		{
 			if (line_obj.f_status == 0)
 				return (line_obj.l_compl);
@@ -209,6 +209,7 @@ char	*ft_linefusion(char *line1, char *line2, int line2_len)
 		j++;
 	}
 	line_result[i + 1] = '\0';
+	printf(MAGENTA_T"Line result es:\n"MAGENTA_T"%s\n", line_result);
 	return (line_result);
 }
 
