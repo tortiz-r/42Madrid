@@ -97,7 +97,7 @@ char	*get_next_line(int fd)
 			if (buffer == NULL)
 			{
 				line_obj.f_status = -1;
-				return (NULL); //TENDRÍA QUE FREE STRUCT Y POSIBLES SIG NODOS!!!
+				return (NULL); //TENDRÍA QUE FREE STRUCT Y PO SIBLES SIG NODOS!!!
 			}
 		}
 	printf("------- Llamamos a distrib_buffer con buffer:\n" RESET_COLOR);
