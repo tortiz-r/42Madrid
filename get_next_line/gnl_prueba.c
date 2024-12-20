@@ -86,6 +86,7 @@ char	*get_next_line(int fd)
 	}
 	if (line_obj.f_status == -1)
 		return (NULL);
+	line_obj.c_status = 0;
 	while (line_obj.l_status == 0)
 	{
 		if (line_obj.l_rem == NULL) //si l_rem está vacía
@@ -112,6 +113,7 @@ char	*get_next_line(int fd)
 		if (check_line(&line_obj) != 1)
 			printf(VERDE_T"Check_line da 0\n"RESET_COLOR);
 	}
+	line_obj.c_status = 1;
 	return (line_obj.l_compl);
 }
 
