@@ -42,7 +42,7 @@ int	main(void)
 	i = 0;
 	fd = open("read_txt_short.txt", O_RDONLY);
 	// read_node = NULL;
-	while (i < 1)
+	while (i < 2)
 	{
 		result = get_next_line(fd);
 		printf("La string result es:\n%s\n", result);
