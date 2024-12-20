@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+.gitignore
+.vscode
+
 #Files ending with _
 *_
 
