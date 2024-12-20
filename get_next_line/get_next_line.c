@@ -30,7 +30,12 @@ char	*get_next_line(int fd)
 	char				*check_distrib;
 
 	line_obj.fd = fd;
-	if (line_obj.c_status == -1)
+	if (line_obj.c_status == 1)
+	{	
+		free(line_obj.l_compl);
+		line_obj.c_status = 0;
+	}	
+	if (line_obj.c_status == 0)
 	{
 		buffer = write_buffer(fd, &line_obj);
 		if (buffer == NULL)
@@ -61,9 +66,12 @@ char	*write_buffer(int fd, t_line_obj *line_utils)
 	line_utils->bytes_read= read(fd, buffer, BUFFER_SIZE);
 	if (line_utils->bytes_read == 0)
 	{
+		line_utils->f_status = -1;
 		free (buffer);
 		return (NULL);
 	}
+	if (line_utils->bytes_read < BUFFER_SIZE)
+		line_utils->f_status = 0;
 	return (buffer);
 }
 
@@ -93,16 +101,16 @@ int	check_line(t_line_obj *line_obj)
 	int	flag;
 
 	i = 0;
-	if (line_obj->line_status == 1)
+	if (line_obj->l_status == 1)
 		free(line_obj->l_compl);
-	if (line_obj->line_status == 0)
+	if (line_obj->l_status == 0)
 	{
 		while (line_obj->l_compl[i] != '\n')
 			i++;
 		if (i == ft_linelen(line_obj->l_compl, 0, line_obj->bytes_read) - 1)
-			line_obj->line_status = 1;
+			line_obj->l_status = 1;
 	}
-	return (line_obj->line_status);
+	return (line_obj->l_status);
 }
 
 //cocatena line2len chars de line2 en line1
