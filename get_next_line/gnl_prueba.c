@@ -88,7 +88,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (line_obj.l_status == 0)
 	{
-		if (line_obj.l_rem == "") //si l_rem está vacía
+		if (line_obj.l_rem == NULL) //si l_rem está vacía
 		{
 			if (line_obj.f_status == 0)
 				return (line_obj.l_compl);
