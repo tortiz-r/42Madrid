@@ -19,6 +19,7 @@
 
 # include <stdlib.h>
 # include <stdio.h>
+#include <limits.h>
 
 int		ft_printf(char const *str, ...);
 int		count_args(char const *str);
