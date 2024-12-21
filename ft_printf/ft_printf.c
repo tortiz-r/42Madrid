@@ -88,7 +88,7 @@ int	ft_printf(char const *str, ...)
 		else if (str[i] == '%' && check_placeholder(str, i) > 0)
 		{
 			print_placeholder(args, str, i, check_placeholder(str, i));
-			i = i + 2;
+			i = i + 1;
 		}
 		// else if (str[i] == '%' && check_placeholder(str, i) == 0)
 		// 	write_ok = 0;
