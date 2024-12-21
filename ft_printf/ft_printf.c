@@ -175,7 +175,7 @@ void	print_placeholder(va_list args, char const *str, int pos, int ph_code)
 		else if (ph_code == 7)
 			temp = ft_hex_itoa(va_arg(args, int));
 		else if (ph_code == 8)
-			temp = ft_toupper(ft_hex_itoa(va_arg(args, int)));
+			temp = ft_str_toupper(ft_hex_itoa(va_arg(args, int)));
 		ft_putstr_fd(temp, 1);
 		free(temp);
 	}
@@ -186,8 +186,8 @@ void	print_placeholder(va_list args, char const *str, int pos, int ph_code)
 int main(void)
 {
 	char *str = "hola que ta%%l j\n";
-	printf("num_args es: %u\n", UINT_MAX);
-	ft_printf("num_args es: %u", UINT_MAX);
+	printf("prueba_printf: c es %c ; string es: %s ; d es: %d ; i es: %i ; u es: %u , percent es: %%\n", 'a', "holii", 5, -10, -1, 4);
+	ft_printf("prueba_printf: c es %c ; string es: %s ; d es: %d ; i es: %i ; u es: %u , percent es: %%\n", 'a', "holii", 5, -10, -1, 4);
 	// printf("num_args es: %i", 5);
 	return (0);
 }
