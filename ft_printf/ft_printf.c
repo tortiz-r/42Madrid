@@ -13,8 +13,6 @@
 # include "ft_printf.h"
 #include <limits.h>
 
-ft_u_itoa
-
 int	ft_printf(char const *str, ...)
 {
 	int		i;
