@@ -30,4 +30,8 @@ char	        *ft_u_itoa(unsigned int n);
 unsigned int	ft_u_val_abs(unsigned int n);
 char	        *u_int_to_char(char *str_num, unsigned int n, unsigned int orden_magn);
 
+char            *ft_hex_itoa(int n);
+char			*ft_str_toupper(char *str_lower);
+char			*ft_str_ptr_hex(void *ptr);
+
 #endif

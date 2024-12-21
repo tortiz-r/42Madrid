@@ -153,27 +153,29 @@ int	check_placeholder(char const *str, int pos)
 	return (-1);
 }
 //en función del ph code, llama a funciones para imprimir cada cosa
+//ph_code es > 0; (1-9)
 void	print_placeholder(va_list args, char const *str, int pos, int ph_code)
 {
 	char	*temp;
 
 	if (ph_code == 1)
 		ft_putchar_fd(va_arg(args, int), 1);
-	else if (ph_code == 2)
+	else if (ph_code == 9)
+		ft_putchar_fd('%', 1);
+	else if (ph_code >= 2 && ph_code <= 8)
 	{
-		temp = ft_strdup(va_arg(args, char *));
-		ft_putstr_fd(temp, 1);
-		free(temp);
-	}
-	else if (ph_code == 4 || ph_code == 5)
-	{
-		temp = ft_itoa(va_arg(args, int));
-		ft_putstr_fd(temp, 1);
-		free(temp);
-	}
-	else if (ph_code == 6 || ph_code == 7)
-	{
-		temp = ft_u_itoa(va_arg(args, int));
+		if (ph_code == 2)
+			temp = ft_strdup(va_arg(args, char *));
+		else if (ph_code == 3)
+			temp = ft_str_ptr_hex(va_args(args, void *));
+		else if (ph_code == 4 || ph_code == 5)
+			temp = ft_itoa(va_arg(args, int));
+		else if (ph_code == 6)
+			temp = ft_u_itoa(va_arg(args, int));
+		else if (ph_code == 7)
+			temp = ft_hex_itoa(va_arg(args, int));
+		else if (ph_code == 8)
+			temp = ft_toupper(ft_hex_itoa(va_arg(args, int)));
 		ft_putstr_fd(temp, 1);
 		free(temp);
 	}
