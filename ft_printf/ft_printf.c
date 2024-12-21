@@ -13,6 +13,7 @@
 # include "ft_printf.h"
 #include <limits.h>
 
+ft_u_itoa
 
 int	ft_printf(char const *str, ...)
 {
@@ -112,6 +113,12 @@ void	print_placeholder(va_list args, char const *str, int pos, int ph_code)
 	else if (ph_code == 4 || ph_code == 5)
 	{
 		temp = ft_itoa(va_arg(args, int));
+		ft_putstr_fd(temp, 1);
+		free(temp);
+	}
+	else if (ph_code == 6 || ph_code == 7)
+	{
+		temp = ft_u_itoa(va_arg(args, int));
 		ft_putstr_fd(temp, 1);
 		free(temp);
 	}

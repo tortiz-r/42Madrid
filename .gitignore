@@ -3,6 +3,8 @@
 
 .gitignore
 .vscode
+*_test.c
+*/*.json
 
 #Files ending with _
 *_
