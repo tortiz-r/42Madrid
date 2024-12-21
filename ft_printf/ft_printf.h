@@ -19,6 +19,10 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-int	ft_printf(char const *str, ...)
+int		ft_printf(char const *str, ...);
+int		count_args(char *str);
+int		check_placeholder(char *str, int position);
+void	print_placeholder(char *str, int position, int ph_code);
+
 
 #endif
