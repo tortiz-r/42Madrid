@@ -32,18 +32,16 @@ int	ft_printf(char const *str, ...)
 {
 	int		i;
 	int		write_ok;
-	char	*temp;
 	va_list	args;
 
 	i = 0;
-	temp = str;
 	va_start (args, str);
 	write_ok = 1;
-	while (i < (int) ft_strlen(temp) && write_ok == 1)
+	while (i < (int) ft_strlen(str) && write_ok == 1)
 	{
-		if (temp[i] != '%')
+		if (str[i] != '%')
 		{
-			write(1, (str + i), 1);
+			write(1, &str[i], 1);
 		}
 		else if (str[i] == '%' && check_placeholder(str, i) > 0)
 		{
@@ -59,7 +57,7 @@ int	ft_printf(char const *str, ...)
 	return (0);
 }
 //me sirve de algo??
-int	count_args(char *str)
+int	count_args(char const *str)
 {
 	int		i;
 	int		len;
@@ -85,38 +83,38 @@ int	count_args(char *str)
 //check_placeholder comprueba que str[i+1] sea algún placeholder
 //si str[i+1]== '\0' -> devuelve 0
 //si str[i+1]== OTRO -> devuelve -1
-int	check_placeholder(char *str, int position)
+int	check_placeholder(char const *str, int pos)
 {
 	int	i;
 
 	i = 0;
-	if (str[position + 1] == '\0')
+	if (str[pos + 1] == '\0')
 		return (0);
-	if (str[position + 1] == 'c')
+	if (str[pos + 1] == 'c')
 		return (1);
-	if (str[position + 1] == 's')
+	if (str[pos + 1] == 's')
 		return (2);
-	if (str[position + 1] == 'p')
+	if (str[pos + 1] == 'p')
 		return (3);
-	if (str[position + 1] == 'd')
+	if (str[pos + 1] == 'd')
 		return (4);
-	if (str[position + 1] == 'i')
+	if (str[pos + 1] == 'i')
 		return (5);
-	if (str[position + 1] == 'u')
+	if (str[pos + 1] == 'u')
 		return (6);
-	if (str[position + 1] == 'x')
+	if (str[pos + 1] == 'x')
 		return (7);
-	if (str[position + 1] == 'X')
+	if (str[pos + 1] == 'X')
 		return (8);
-	if (str[position + 1] == '%')
+	if (str[pos + 1] == '%')
 		return (9);
 	return (-1);
 }
 //en función del ph code, llama a funciones para imprimir cada cosa
-void	print_placeholder(va_list args, char *str, int position, int ph_code)
+void	print_placeholder(va_list args, char const *str, int pos, int ph_code)
 {
 	if (ph_code == 1)
-		ft_putchar_fd(va_arg(args, char), 1);
+		ft_putchar_fd(va_arg(args, int), 1);
 }
 //pregunta: se imprimen los '\0' al final del printf???
 //necesito saber el número de placeholders que tengo??

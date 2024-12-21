@@ -21,9 +21,9 @@
 # include <stdio.h>
 
 int		ft_printf(char const *str, ...);
-int		count_args(char *str);
-int		check_placeholder(char *str, int position);
-void	print_placeholder(va_list args, char *str, int position, int ph_code);
+int		count_args(char const *str);
+int		check_placeholder(char const *str, int position);
+void	print_placeholder(va_list args, char const *str, int pos, int ph_code);
 
 
 #endif
