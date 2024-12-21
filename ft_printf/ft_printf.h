@@ -14,6 +14,10 @@
 # define FT_PRINTF_H
 
 # include "libft/libft.h"
+# include <stdarg.h>
+
+# include <stdlib.h>
+# include <stdio.h>
 
 int	ft_printf(char const *str, ...)
 
