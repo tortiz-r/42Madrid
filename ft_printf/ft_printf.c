@@ -167,14 +167,17 @@ void	print_placeholder(va_list args, char const *str, int pos, int ph_code)
 		if (ph_code == 2)
 			temp = ft_strdup(va_arg(args, char *));
 		else if (ph_code == 3)
+			printf("!");
 			//temp = ft_str_ptr_hex(va_arg(args, void *));
 		else if (ph_code == 4 || ph_code == 5)
 			temp = ft_itoa(va_arg(args, int));
 		else if (ph_code == 6)
 			temp = ft_u_itoa(va_arg(args, int));
 		else if (ph_code == 7)
+			printf("!");
 			//temp = ft_hex_itoa(va_arg(args, int));
 		else if (ph_code == 8)
+			printf("!");
 			//temp = ft_str_toupper(ft_hex_itoa(va_arg(args, int)));
 		ft_putstr_fd(temp, 1);
 		free(temp);
