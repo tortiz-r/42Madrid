@@ -25,9 +25,7 @@ int		ft_printf(char const *str, ...);
 int		count_args(char const *str);
 int		check_placeholder(char const *str, int position);
 void	print_placeholder(va_list args, char const *str, int pos, int ph_code);
-
 char	*ft_u_itoa(unsigned int n);
-
 
 
 #endif
