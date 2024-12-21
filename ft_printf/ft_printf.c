@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 # include "ft_printf.h"
-
+/*
 int	ft_printf(char const *str, ...)
 {
 	va_list	args;
@@ -22,7 +22,7 @@ int	ft_printf(char const *str, ...)
 	va_end(args);
 	
 	return (0);
-}
+}*/
 
 int	count_args(char const *str)
 {
