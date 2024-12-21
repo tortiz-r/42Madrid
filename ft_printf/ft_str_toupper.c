@@ -12,7 +12,4 @@
 
 # include "ft_printf.h"
 
-char			*ft_str_toupper(char *str_lower)
-{
-
-}
+char			*ft_str_toupper(char *str_lower);
