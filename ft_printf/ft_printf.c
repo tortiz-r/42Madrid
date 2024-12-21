@@ -116,10 +116,7 @@ int	check_placeholder(char *str, int position)
 void	print_placeholder(va_list args, char *str, int position, int ph_code)
 {
 	if (ph_code == 1)
-	{
-		ft_putchar_fd(va_arg(args, int), 1);
-	}
-
+		ft_putchar_fd(va_arg(args, char), 1);
 }
 //pregunta: se imprimen los '\0' al final del printf???
 //necesito saber el número de placeholders que tengo??
