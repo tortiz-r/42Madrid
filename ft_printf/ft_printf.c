@@ -42,7 +42,7 @@ char	*ft_u_itoa(unsigned int n)
 	return (str_num);
 }
 
-unsigned int	ft_u_val_abs(unsigned n)
+unsigned int	ft_u_val_abs(unsigned int n)
 {
 	if (n < 0)
 		n *= (-1);

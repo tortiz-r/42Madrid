@@ -13,7 +13,6 @@
 # include "ft_printf.h"
 
 unsigned int	ft_u_val_abs(unsigned n);
-
 char	        *u_int_to_char(char *str_num, unsigned int n, unsigned int orden_magn);
 
 char	*ft_u_itoa(unsigned int n)
