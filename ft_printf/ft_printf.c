@@ -20,7 +20,7 @@ char	*ft_u_itoa(unsigned int n)
 	unsigned int	n_cpy;
 	char			*str_num;
 
-	n_cpy = ft_val_abs(n);
+	n_cpy = ft_u_val_abs(n);
 	printf("n_cpy es: %u\n", n_cpy);
 	orden_magn = 0;
 	while (n_cpy != 0)
@@ -38,7 +38,7 @@ char	*ft_u_itoa(unsigned int n)
 		return (NULL);
 	if (n_cpy == 0)
 		str_num[0] = '0';
-	str_num = int_to_char(str_num, ft_val_abs(n), orden_magn);
+	str_num = u_int_to_char(str_num, ft_u_val_abs(n), orden_magn);
 	return (str_num);
 }
 
