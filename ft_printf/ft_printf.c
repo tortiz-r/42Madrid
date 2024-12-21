@@ -144,11 +144,15 @@ void	print_placeholder(va_list args, char const *str, int pos, int ph_code)
 
 	if (ph_code == 1)
 		ft_putchar_fd(va_arg(args, int), 1);
-	if (ph_code == 2)
+	else if (ph_code == 2)
 	{
 		temp = ft_strdup(va_arg(args, char *));
 		ft_putstr_fd(temp, 1);
 		free(temp);
+	}
+	else if (ph_code == 4 || ph_code == 5)
+	{
+
 	}
 }
 //pregunta: se imprimen los '\0' al final del printf???
@@ -156,7 +160,7 @@ void	print_placeholder(va_list args, char const *str, int pos, int ph_code)
 int main(void)
 {
 	char *str = "hola que ta%%l j\n";
-	printf("num_args es: %s\n", "holi\n");
+	printf("num_args es: %i", 97);
 	ft_printf("num_args es: %s", "holi\n");
 	// printf("num_args es: %i", 5);
 	return (0);
