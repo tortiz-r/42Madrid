@@ -16,8 +16,6 @@ void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }
-
-
 size_t	ft_strlen(const char *s)
 {
 	unsigned long	i;
@@ -26,6 +24,35 @@ size_t	ft_strlen(const char *s)
 	while (s[i] != '\0')
 		i++;
 	return (i);
+}
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	unsigned long	i;
+	char			*src_cpy;
+
+	i = 0;
+	src_cpy = (char *) src;
+	if (size == 0)
+		return ((unsigned long) ft_strlen(src_cpy));
+	while (i < (size - 1) && src_cpy[i] != '\0')
+	{
+		dst[i] = src_cpy[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return ((unsigned long) ft_strlen(src_cpy));
+}
+char	*ft_strdup(const char *s)
+{
+	char	*result;
+	size_t	s_len;
+
+	s_len = ft_strlen(s);
+	result = (char *) malloc(s_len + 1);
+	if (result == NULL)
+		return (NULL);
+	ft_strlcpy(result, s, s_len + 1);
+	return (result);
 }
 
 int	ft_printf(char const *str, ...)
@@ -113,8 +140,16 @@ int	check_placeholder(char const *str, int pos)
 //en función del ph code, llama a funciones para imprimir cada cosa
 void	print_placeholder(va_list args, char const *str, int pos, int ph_code)
 {
+	char	*temp;
+
 	if (ph_code == 1)
 		ft_putchar_fd(va_arg(args, int), 1);
+	if (ph_code == 2)
+	{
+		temp = ft_strdup(str);
+		ft_putstr_fd(temp, 1);
+		free(temp);
+	}
 }
 //pregunta: se imprimen los '\0' al final del printf???
 //necesito saber el número de placeholders que tengo??
@@ -122,7 +157,7 @@ int main(void)
 {
 	char *str = "hola que ta%%l j\n";
 	printf("num_args es: %i\n", 65);
-	ft_printf("num_args es: %c", 'a');
+	ft_printf("num_args es: %s", "holi\n");
 	// printf("num_args es: %i", 5);
 	return (0);
 }
