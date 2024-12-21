@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 12:24:46 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/08/14 12:57:06 by tortiz-r         ###   ########.fr       */
+/*   Created: 2024/07/11 12:56:39 by tortiz-r          #+#    #+#             */
+/*   Updated: 2024/07/15 16:59:57 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "libft/libft.h"
-# include <stdarg.h>
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	unsigned long	i;
+	char			*src_cpy;
 
-# include <stdlib.h>
-# include <stdio.h>
-
-int		ft_printf(char const *str, ...);
-int		count_args(char *str);
-int		check_placeholder(char *str, int position);
-void	print_placeholder(va_list args, char *str, int position, int ph_code);
-
-
-#endif
+	i = 0;
+	src_cpy = (char *) src;
+	if (size == 0)
+		return ((unsigned long) ft_strlen(src_cpy));
+	while (i < (size - 1) && src_cpy[i] != '\0')
+	{
+		dst[i] = src_cpy[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return ((unsigned long) ft_strlen(src_cpy));
+}

@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 12:24:46 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/08/14 12:57:06 by tortiz-r         ###   ########.fr       */
+/*   Created: 2024/07/16 12:45:24 by tortiz-r          #+#    #+#             */
+/*   Updated: 2024/07/16 13:01:14 by tortiz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "libft/libft.h"
-# include <stdarg.h>
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str_result;
 
-# include <stdlib.h>
-# include <stdio.h>
-
-int		ft_printf(char const *str, ...);
-int		count_args(char *str);
-int		check_placeholder(char *str, int position);
-void	print_placeholder(va_list args, char *str, int position, int ph_code);
-
-
-#endif
+	str_result = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (str_result == NULL)
+		return (NULL);
+	str_result = ft_memcpy(str_result, s1, ft_strlen(s1));
+	ft_strlcpy((str_result + ft_strlen(s1)), s2, ft_strlen(s2) + 1);
+	return (str_result);
+}

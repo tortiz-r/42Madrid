@@ -12,27 +12,50 @@
 
 # include "ft_printf.h"
 
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+
+size_t	ft_strlen(const char *s)
+{
+	unsigned long	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
 int	ft_printf(char const *str, ...)
 {
 	int		i;
-	int		str_len;
 	int		write_ok;
+	char	*temp;
 	va_list	args;
 
 	i = 0;
+	temp = str;
 	va_start (args, str);
-	str_len = ft_strlen(str);
 	write_ok = 1;
-	while (i < str_len && write_ok == 1)
+	while (i < (int) ft_strlen(temp) && write_ok == 1)
 	{
-		if (str[i] != '%')
-			write(1, str[i], 1);
-		else if (str[i] == '%' && check_placeholder(str, i) != -1)
-			print_placeholder(str, i, check_placeholder(str, i));
+		if (temp[i] != '%')
+		{
+			write(1, (str + i), 1);
+		}
+		else if (str[i] == '%' && check_placeholder(str, i) > 0)
+		{
+			print_placeholder(args, str, i, check_placeholder(str, i));
+			i = i + 2;
+		}
+		// else if (str[i] == '%' && check_placeholder(str, i) == 0)
+		// 	write_ok = 0;
 		else
 			write_ok = 0;
 		i++;
-	}	
+	}
 	return (0);
 }
 //me sirve de algo??
@@ -90,9 +113,13 @@ int	check_placeholder(char *str, int position)
 	return (-1);
 }
 //en función del ph code, llama a funciones para imprimir cada cosa
-void	print_placeholder(char *str, int position, int ph_code)
+void	print_placeholder(va_list args, char *str, int position, int ph_code)
 {
-	//continuar por aquí
+	if (ph_code == 1)
+	{
+		ft_putchar_fd(va_arg(args, int), 1);
+	}
+
 }
 //pregunta: se imprimen los '\0' al final del printf???
 //necesito saber el número de placeholders que tengo??
@@ -100,6 +127,7 @@ int main(void)
 {
 	char *str = "hola que ta%%l j\n";
 	printf("num_args es: %tlls\n");
+	ft_printf("num_args es: j");
 	// printf("num_args es: %i", 5);
 	return (0);
 }
