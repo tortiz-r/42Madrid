@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 # include "ft_printf.h"
+#include <limits.h>
+
 
 int	ft_printf(char const *str, ...)
 {
