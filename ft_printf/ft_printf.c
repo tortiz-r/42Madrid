@@ -146,7 +146,7 @@ void	print_placeholder(va_list args, char const *str, int pos, int ph_code)
 		ft_putchar_fd(va_arg(args, int), 1);
 	if (ph_code == 2)
 	{
-		temp = ft_strdup(str);
+		temp = ft_strdup(va_arg(args, char *));
 		ft_putstr_fd(temp, 1);
 		free(temp);
 	}
