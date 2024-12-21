@@ -126,8 +126,8 @@ void	print_placeholder(va_list args, char *str, int position, int ph_code)
 int main(void)
 {
 	char *str = "hola que ta%%l j\n";
-	printf("num_args es: %tlls\n");
-	ft_printf("num_args es: j");
+	printf("num_args es: %i\n", 65);
+	ft_printf("num_args es: %c", 'a');
 	// printf("num_args es: %i", 5);
 	return (0);
 }
