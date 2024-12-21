@@ -52,20 +52,20 @@ unsigned int	calc_int(char *str_num)
 	return (result);
 }
 
-#include<unistd.h>
-#include<stdio.h>
-#include<stdlib.h>
-#include "ft_strlen.c"
+// #include<unistd.h>
+// #include<stdio.h>
+// #include<stdlib.h>
+// #include "ft_strlen.c"
 
-int main(void)
-{
-    const char	*str;
-	int			result;
+// int main(void)
+// {
+//     const char	*str;
+// 	int			result;
     
 
-    str = "";
-    //c = 'a';
-    result = ft_atoi(str);
-	printf("Mi string de partida es:\n%s\n", str);
-	printf("El número devuelto es:\n%i\n", result);
-}
+//     str = "";
+//     //c = 'a';
+//     result = ft_atoi(str);
+// 	printf("Mi string de partida es:\n%s\n", str);
+// 	printf("El número devuelto es:\n%i\n", result);
+// }
