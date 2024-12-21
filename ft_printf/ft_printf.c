@@ -13,6 +13,63 @@
 # include "ft_printf.h"
 # include <limits.h>
 
+
+char	*ft_u_itoa(unsigned int n)
+{
+	unsigned int	orden_magn;
+	unsigned int	n_cpy;
+	char			*str_num;
+
+	n_cpy = ft_val_abs(n);
+	printf("n_cpy es: %u\n", n_cpy);
+	orden_magn = 0;
+	while (n_cpy != 0)
+	{
+		n_cpy -= n_cpy % 10;
+		n_cpy = n_cpy / 10;
+		orden_magn++;
+	}
+	printf("orden_magn es: %u\n", orden_magn);
+	if (n > 0)
+		str_num = malloc(orden_magn + 1);
+	else
+		str_num = malloc(2);
+	if (str_num == NULL)
+		return (NULL);
+	if (n_cpy == 0)
+		str_num[0] = '0';
+	str_num = int_to_char(str_num, ft_val_abs(n), orden_magn);
+	return (str_num);
+}
+
+unsigned int	ft_u_val_abs(unsigned n)
+{
+	if (n < 0)
+		n *= (-1);
+	return (n);
+}
+
+char	*u_int_to_char(char *str_num, unsigned int n, unsigned int orden_magn)
+{
+	unsigned int	i;
+
+	i = 0;
+	printf("n es: %u\n", n);
+	if (n == 0)
+		str_num[1] = '\0';
+	else
+		str_num[orden_magn] = '\0';
+	while (n > 0)
+	{
+		str_num[orden_magn - 1 - i] = (n % 10) + '0';
+		n -= n % 10;
+		n = n / 10;
+		// printf("%c", str_num[orden_magn - 1 - i]);
+		i++;
+	}
+	return (str_num);
+}
+
 int	ft_printf(char const *str, ...)
 {
 	int		i;
@@ -121,6 +178,7 @@ void	print_placeholder(va_list args, char const *str, int pos, int ph_code)
 		free(temp);
 	}
 }
+
 //pregunta: se imprimen los '\0' al final del printf??? -> NO
 //necesito saber el número de placeholders que tengo?? -> no?
 int main(void)
