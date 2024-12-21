@@ -160,7 +160,7 @@ void	print_placeholder(va_list args, char const *str, int pos, int ph_code)
 int main(void)
 {
 	char *str = "hola que ta%%l j\n";
-	printf("num_args es: %i", 97);
+	printf("num_args es: %i\n", 97);
 	ft_printf("num_args es: %s", "holi\n");
 	// printf("num_args es: %i", 5);
 	return (0);
