@@ -1,10 +1,10 @@
-# Prerequisites
-*.d
-
 .gitignore
-.vscode
+.vscode/
 *_test.c
 */*.json
+
+# Prerequisites
+*.d
 
 #Files ending with _
 *_
