@@ -13,11 +13,12 @@
 # include "ft_printf.h"
 
 
-char            *ft_hex_itoa(int n);
+char	*u_int_to_hex_char(char *str_num, unsigned int n, unsigned int orden_magn);
+char	convert_int_to_hex_char();
+//Falta por hacer convert_int_to_hex_char que coge un int y devuelve un char del hex
+//ahí debería probar si funciona
 
-char	        *u_int_to_hex_char(char *str_num, unsigned int n, unsigned int orden_magn);
-
-char	*ft_u_itoa(unsigned int n)
+char	*ft_hex_itoa(unsigned int n)
 {
 	unsigned int	orden_magn;
 	unsigned int	n_cpy;
@@ -57,9 +58,12 @@ char	*u_int_to_hex_char(char *str_num, unsigned int n, unsigned int orden_magn)
 		str_num[orden_magn] = '\0';
 	while (n > 0)
 	{
-		str_num[orden_magn - 1 - i] = (n % 10) + '0';
-		n -= n % 10;
-		n = n / 10;
+        if ((n % 16) <= 9)
+			str_num[orden_magn - 1 - i] = (n % 16) + '0';
+		 else if ((n % 16) > 9)
+			str_num[orden_magn - 1 - i] = convert_int_to_hex_char(n % 16);
+		n -= n % 16;
+		n = n / 16;
 		// printf("%c", str_num[orden_magn - 1 - i]);
 		i++;
 	}

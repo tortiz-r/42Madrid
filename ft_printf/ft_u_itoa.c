@@ -12,7 +12,7 @@
 
 # include "ft_printf.h"
 
-char	        *u_int_to_char(char *str_num, unsigned int n, unsigned int orden_magn);
+char	*u_int_to_char(char *str_num, unsigned int n, unsigned int orden_magn);
 
 char	*ft_u_itoa(unsigned int n)
 {

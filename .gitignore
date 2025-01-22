@@ -1,6 +1,6 @@
 .gitignore
 .vscode/
-*_test.c
+*test*
 */*.json
 
 # Prerequisites
