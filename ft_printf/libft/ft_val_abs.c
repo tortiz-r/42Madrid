@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_bonus.h                                  :+:      :+:    :+:   */
+/*   ft_val_abs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 12:24:46 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/08/14 12:58:44 by tortiz-r         ###   ########.fr       */
+/*   Created: 2025/01/22 20:04:03 by marvin            #+#    #+#             */
+/*   Updated: 2025/01/22 20:04:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_BONUS_H
-# define FT_PRINTF_BONUS_H
-
-# include "libft/libft.h"
 # include "ft_printf.h"
 
-#endif
+unsigned int	ft_val_abs(unsigned n)
+{
+	if (n < 0)
+		n *= (-1);
+	return (n);
+}

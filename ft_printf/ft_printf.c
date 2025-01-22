@@ -186,12 +186,3 @@ void	print_placeholder(va_list args, char const *str, int pos, int ph_code)
 
 //pregunta: se imprimen los '\0' al final del printf??? -> NO
 //necesito saber el número de placeholders que tengo?? -> no?
-int main(void)
-{
-	char *str = "hola que ta%%l j\n";
-	printf("prueba_printf: c es %c ; string es: %s ; d es: %d ; i es: %i ; u es: %u , percent es: %%\n", 'a', "holii", 5, -10, -1, 4);
-	ft_printf("prueba_printf: c es %c ; string es: %s ; d es: %d ; i es: %i ; u es: %u , percent es: %%\n", 'a', "holii", 5, -10, -1, 4);
-	//slay funciona todo los ph de c, s, d, i , u, %!!!!!
-	// printf("num_args es: %i", 5);
-	return (0);
-}

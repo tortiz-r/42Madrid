@@ -27,7 +27,6 @@ int		check_placeholder(char const *str, int position);
 void	print_placeholder(va_list args, char const *str, int pos, int ph_code);
 
 char	        *ft_u_itoa(unsigned int n);
-unsigned int	ft_u_val_abs(unsigned int n);
 char	        *u_int_to_char(char *str_num, unsigned int n, unsigned int orden_magn);
 
 char            *ft_hex_itoa(int n);

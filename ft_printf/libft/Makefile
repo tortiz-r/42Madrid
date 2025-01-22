@@ -45,7 +45,8 @@ SRC =   ft_isalpha.c \
 		ft_putchar_fd.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
-		ft_putnbr_fd.c
+		ft_putnbr_fd.c \
+		ft_val_abs.c
         
 OBJ = ${SRC:.c=.o}
 
