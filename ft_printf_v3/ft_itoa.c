@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:27:04 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/12/21 21:05:52 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:45:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_val_abs(int n);
 char	*int_to_char(char *str_num, int n_cpy, unsigned int order_magn);
 
 char	*ft_itoa(int n)
@@ -41,13 +40,6 @@ char	*ft_itoa(int n)
 		str_num[0] = '0';
 	str_num = int_to_char(str_num, n, order_magn);
 	return (str_num);
-}
-
-int	ft_val_abs(int n)
-{
-	if (n < 0)
-		n *= (-1);
-	return (n);
 }
 
 char	*int_to_char(char *str_num, int n, unsigned int order_magn)

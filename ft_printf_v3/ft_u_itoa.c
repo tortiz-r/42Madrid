@@ -12,7 +12,6 @@
 
 #include "ft_printf.h"
 
-unsigned int	ft_u_val_abs(long n);
 char			*u_int_to_char(char *str_num, unsigned int n,
 					unsigned int orden_magn);
 
@@ -42,13 +41,6 @@ char	*ft_u_itoa(unsigned int n)
 		str_num[0] = '0';
 	str_num = u_int_to_char(str_num, ft_u_val_abs(n), orden_magn);
 	return (str_num);
-}
-
-unsigned int	ft_u_val_abs(long n)
-{
-	if (n < 0)
-		n *= (-1);
-	return (n);
 }
 
 char	*u_int_to_char(char *str_num, unsigned int n, unsigned int orden_magn)

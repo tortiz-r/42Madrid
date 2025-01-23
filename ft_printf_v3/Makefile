@@ -20,11 +20,12 @@ SRC_DIR = .
 OBJ_DIR = $(SRC_DIR)
 
 SRC =	$(SRC_DIR)/ft_printf.c \
+		$(SRC_DIR)/ft_itoa.c \
 		$(SRC_DIR)/ft_u_itoa.c \
 		$(SRC_DIR)/ft_hex_itoa.c \
-		$(SRC_DIR)/ft_itoa.c \
 		$(SRC_DIR)/ft_str_ptr_hex.c \
-		$(SRC_DIR)/libft_utils.c
+		$(SRC_DIR)/libft_str_utils.c \
+		$(SRC_DIR)/libft_utils2.c
 
 OBJ = ${SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o}
 

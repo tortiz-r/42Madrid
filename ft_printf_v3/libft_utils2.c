@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_toupper.c                                   :+:      :+:    :+:   */
+/*   libft_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 14:30:03 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/21 14:30:03 by marvin           ###   ########.fr       */
+/*   Created: 2025/01/23 15:32:09 by marvin            #+#    #+#             */
+/*   Updated: 2025/01/23 15:32:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// # include "ft_printf.h"
+#include "ft_printf.h"
 
-char			*ft_str_toupper(char *str_lowcase)
+
+int	ft_val_abs(int n)
 {
-	int		i;
-	
-	i = 0;
-	while ((str_lowcase + i) != 0)
-	{
-		if (str_lowcase[i] >= 'a' && str_lowcase[i] <= 'z')
-			str_lowcase[i] -= 32;
-		i++;
-	}
-	return (str_lowcase);
+	if (n < 0)
+		n *= (-1);
+	return (n);
 }
 
-int main(void)
+unsigned int	ft_u_val_abs(long n)
 {
-	char	*str_low = "hola245adios!";
-
-	printf("la string es: %s\n", ft_str_toupper(str_low));
+	if (n < 0)
+		n *= (-1);
+	return (n);
 }

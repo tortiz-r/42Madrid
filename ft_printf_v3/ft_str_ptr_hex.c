@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_ptr_hex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tortiz-r <tortiz-r@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:52:02 by tortiz-r          #+#    #+#             */
-/*   Updated: 2024/12/21 21:16:31 by tortiz-r         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:45:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ unsigned int	calc_int(char *str_num)
 	}
 	return (result);
 }
-
 
 char	*int_to_hex_str_ptr(char *str_num, unsigned int n,
 			unsigned int orden_magn, char c)

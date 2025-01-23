@@ -13,7 +13,7 @@
 # include "ft_printf.h"
 
 
-char	*u_int_to_hex_char(char *str_num, unsigned int n,
+char	*int_to_hex_str(char *str_num, unsigned int n,
 			unsigned int orden_magn);
 
 char	*ft_hex_itoa(unsigned int n)
@@ -40,11 +40,11 @@ char	*ft_hex_itoa(unsigned int n)
 		return (NULL);
 	if (n_cpy == 0)
 		str_num[0] = '0';
-	str_num = u_int_to_hex_char(str_num, ft_val_abs(n), orden_magn);
+	str_num = int_to_hex_str(str_num, ft_val_abs(n), orden_magn);
 	return (str_num);
 }
 
-char	*u_int_to_hex_char(char *str_num, unsigned int n,
+char	*int_to_hex_str(char *str_num, unsigned int n,
 			unsigned int orden_magn)
 {
 	unsigned int	i;
