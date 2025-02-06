@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:16:09 by tortiz-r          #+#    #+#             */
-/*   Updated: 2025/01/23 15:46:05 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/06 13:39:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,10 @@ int	ft_putstr_fd(char *s, int fd)
 		ft_putchar_fd(s[i], fd);
 		i++;
 	}
+	if (s == NULL)
+		{
+			ft_putstr_fd("(null)", 1);
+			return (ft_strlen("(null)"));
+		}
 	return (i);
 }

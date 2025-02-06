@@ -17,6 +17,7 @@ char	hex_ascii(int num, char optn);
 char	*int_to_hex_str(char *str_num, unsigned int n,
 			unsigned int orden_magn, char c);
 
+// optn == l for lowercase; == u for uppercase
 char	*ft_hex_itoa(int n, char optn)
 {
 	unsigned int	orden_magn;
