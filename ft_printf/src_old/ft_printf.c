@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <unistd.h>
+// #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
@@ -85,7 +85,7 @@ int	print_placeholder(va_list args, int ph_code)
 	i = 0;
 	if (ph_code == 1)
 		i = ft_putchar_fd((char) va_arg(args, int), 1);
-	if (ph_code == 2)
+	else if (ph_code == 2)
 		temp = ft_strdup(va_arg(args, char *));
 	else if (ph_code == 3)
 		temp = ft_str_ptr_hex(va_arg(args, void *));
@@ -97,9 +97,9 @@ int	print_placeholder(va_list args, int ph_code)
 		temp = ft_hex_itoa(va_arg(args, int), 'l');
 	else if (ph_code == 8)
 		temp = ft_hex_itoa(va_arg(args, int), 'u');
-	i = ft_putstr_fd(temp, 1);
 	else if (ph_code == 9)
 		i = ft_putchar_fd('%', 1);
+	i = ft_putstr_fd(temp, 0);
 	free(temp);
 	return (i);
 }

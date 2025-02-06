@@ -13,30 +13,23 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+# include "libft/libft.h"
 # include <unistd.h>
 # include <stdarg.h>
 
-# include <stdio.h>
-# include <limits.h>
 # include <stdlib.h>
+# include <stdio.h>
+#include <limits.h>
 
-int				ft_printf(char const *str, ...);
-int				check_placeholder(char const *str, int position);
-int				print_placeholder(va_list args, int ph_code);
+int		ft_printf(char const *str, ...);
+int		count_args(char const *str);
+int		check_placeholder(char const *str, int position);
+void	print_placeholder(va_list args, char const *str, int pos, int ph_code);
 
-char			*ft_itoa(int n);
-char			*ft_u_itoa(unsigned int n);
-char			*ft_hex_itoa(int n, char optn);
-char			*ft_str_ptr_hex(void *str);
+char	        *ft_u_itoa(unsigned int n);
 
-int				ft_atoi(const char *nptr);
-char			*ft_strdup(const char *s);
-size_t			ft_strlcpy(char *dst, const char *src, size_t size);
-size_t			ft_strlen(const char *s);
-int				ft_putchar_fd(char c, int fd);
-int				ft_putstr_fd(char *s, int fd);
-
-int				ft_val_abs(int n);
-unsigned int	ft_u_val_abs(long n);
+char            *ft_hex_itoa(int n);
+char			*ft_str_toupper(char *str_lower);
+char			*ft_str_ptr_hex(void *ptr);
 
 #endif
