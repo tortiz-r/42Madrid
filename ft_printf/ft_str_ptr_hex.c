@@ -6,16 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:52:02 by tortiz-r          #+#    #+#             */
-/*   Updated: 2025/01/23 15:45:42 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/06 18:46:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 unsigned int	calc_int(char *str_num);
-char			hex_ptr_ascii(int num, char optn);
-char			*int_to_hex_str_ptr(char *str_num, unsigned int n,
-					unsigned int orden_magn, char c);
 
 char	*ft_str_ptr_hex(void *str)
 {
@@ -42,7 +39,9 @@ char	*ft_str_ptr_hex(void *str)
 		return (NULL);
 	str_num[0] = '0';
 	str_num[1] = '1';
-	int_to_hex_str_ptr(str_num + 2, (unsigned int) n, orden_magn, 'l');
+	printf("n es: %x", n);
+	printf("n_hex es: %x", n);
+	int_to_hex_str(str_num + 2, (unsigned int) n, orden_magn, 'l');
 	return (str_num);
 }
 
@@ -86,42 +85,42 @@ unsigned int	calc_int(char *str_num)
 	return (result);
 }
 
-char	*int_to_hex_str_ptr(char *str_num, unsigned int n,
-			unsigned int orden_magn, char c)
-{
-	unsigned int	i;
+// char	*int_to_hex_str_ptr(char *str_num, unsigned int n,
+// 			unsigned int orden_magn, char c)
+// {
+// 	unsigned int	i;
 
-	i = 0;
-	if (n == 0)
-		str_num[1] = '\0';
-	else
-		str_num[orden_magn] = '\0';
-	while (n > 0)
-	{
-		if ((n % 16) >= 10 && (n % 16) <= 15)
-			str_num[orden_magn - 1 - i] = hex_ptr_ascii(n % 16, c);
-		else
-			str_num[orden_magn - 1 - i] = (n % 16) + '0';
-		n -= n % 16;
-		n = n / 16;
-		i++;
-	}
-	return (str_num);
-}
+// 	i = 0;
+// 	if (n == 0)
+// 		str_num[1] = '\0';
+// 	else
+// 		str_num[orden_magn] = '\0';
+// 	while (n > 0)
+// 	{
+// 		if ((n % 16) >= 10 && (n % 16) <= 15)
+// 			str_num[orden_magn - 1 - i] = hex_ptr_ascii(n % 16, c);
+// 		else
+// 			str_num[orden_magn - 1 - i] = (n % 16) + '0';
+// 		n -= n % 16;
+// 		n = n / 16;
+// 		i++;
+// 	}
+// 	return (str_num);
+// }
 
-char	hex_ptr_ascii(int num, char optn)
-{
-	if (num == 10 && optn == 'l')
-		return ('a');
-	if (num == 11 && optn == 'l')
-		return ('b');
-	if (num == 12 && optn == 'l')
-		return ('c');
-	if (num == 13 && optn == 'l')
-		return ('d');
-	if (num == 14 && optn == 'l')
-		return ('e');
-	if (num == 15 && optn == 'l')
-		return ('f');
-	return ((char) num);
-}
+// char	hex_ptr_ascii(int num, char optn)
+// {
+// 	if (num == 10 && optn == 'l')
+// 		return ('a');
+// 	if (num == 11 && optn == 'l')
+// 		return ('b');
+// 	if (num == 12 && optn == 'l')
+// 		return ('c');
+// 	if (num == 13 && optn == 'l')
+// 		return ('d');
+// 	if (num == 14 && optn == 'l')
+// 		return ('e');
+// 	if (num == 15 && optn == 'l')
+// 		return ('f');
+// 	return ((char) num);
+// }

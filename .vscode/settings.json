@@ -4,5 +4,6 @@
         "stddef.h": "c",
         "limits.h": "c",
         "ft_printf.h": "c"
-    }
+    },
+    "makefile.configureOnOpen": true
 }

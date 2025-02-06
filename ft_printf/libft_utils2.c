@@ -19,10 +19,3 @@ int	ft_val_abs(int n)
 		n *= (-1);
 	return (n);
 }
-
-unsigned int	ft_u_val_abs(long n)
-{
-	if (n < 0)
-		n *= (-1);
-	return (n);
-}

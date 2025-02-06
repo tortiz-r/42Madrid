@@ -12,20 +12,18 @@
 
 #include "ft_printf.h"
 
-long	ft_hex_val_abs(long n);
-char	hex_ascii(int num, char optn);
-char	*int_to_hex_str(char *str_num, unsigned int n,
-			unsigned int orden_magn, char c);
-
 // optn == l for lowercase; == u for uppercase
 char	*ft_hex_itoa(int n, char optn)
 {
 	unsigned int	orden_magn;
-	int				n_cpy;
+	unsigned int	n_cpy;
 	char			*str_num;
 
-	n_cpy = ft_hex_val_abs(n);
+	//printf("estoy en hex_itoa\n");
 	orden_magn = 0;
+	n_cpy = n;
+	if (n < 0)
+		n_cpy = UINT_MAX - (unsigned int) ft_val_abs(n) + 1;
 	while (n_cpy != 0)
 	{
 		n_cpy -= n_cpy % 16;
@@ -33,24 +31,17 @@ char	*ft_hex_itoa(int n, char optn)
 		orden_magn++;
 	}
 	if (n < 0)
-		str_num = malloc(orden_magn + 2);
-	else if (n > 0)
-		str_num = malloc(orden_magn + 1);
+		n_cpy = UINT_MAX - (unsigned int) ft_val_abs(n) + 1;
 	else
-		str_num = malloc(2);
+		n_cpy = n;
+	if (n == 0)
+		str_num = malloc(3);
+	else
+		str_num = malloc(orden_magn + 1);
 	if (str_num == NULL)
 		return (NULL);
-	if (n == 0)
-		str_num[0] = '0';
-	str_num = int_to_hex_str(str_num, ft_hex_val_abs(n), orden_magn, optn);
-	return (str_num);
-}
-
-long	ft_hex_val_abs(long n)
-{
-	if (n < 0)
-		n *= (-1);
-	return (n);
+	//printf("orden magnitud es %u\n", orden_magn);
+	return (int_to_hex_str(str_num, n_cpy, orden_magn, optn));
 }
 
 char	*int_to_hex_str(char *str_num, unsigned int n,
@@ -60,7 +51,10 @@ char	*int_to_hex_str(char *str_num, unsigned int n,
 
 	i = 0;
 	if (n == 0)
+	{
+		str_num[0] = '0';
 		str_num[1] = '\0';
+	}
 	else
 		str_num[orden_magn] = '\0';
 	while (n > 0)

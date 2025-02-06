@@ -40,5 +40,8 @@ int				ft_putstr_fd(char *s, int fd);
 
 int				ft_val_abs(int n);
 unsigned int	ft_u_val_abs(long n);
+char	        hex_ascii(int num, char optn);
+char	        *int_to_hex_str(char *str_num, unsigned int n,
+			        unsigned int orden_magn, char c);
 
 #endif
