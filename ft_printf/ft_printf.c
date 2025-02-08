@@ -96,7 +96,10 @@ int	print_more_placeholders(va_list args, int ph_code)
 		temp = ft_hex_itoa(va_arg(args, int), 'l');
 	else if (ph_code == 8)
 		temp = ft_hex_itoa(va_arg(args, int), 'u');
-	i = ft_putstr_fd(temp, 1);
+	if (ph_code == 3)
+		i = ft_putptr_fd(temp, 1);
+	else
+		i = ft_putstr_fd(temp, 1);
 	free(temp);
 	return (i);
 }

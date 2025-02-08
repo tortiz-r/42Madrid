@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:16:09 by tortiz-r          #+#    #+#             */
-/*   Updated: 2025/02/06 13:39:09 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/08 19:34:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,4 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	}
 	dst[i] = '\0';
 	return ((unsigned long) ft_strlen(src_cpy));
-}
-
-int	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-	return (1);
-}
-
-int	ft_putstr_fd(char *s, int fd)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (i < ft_strlen(s))
-	{
-		ft_putchar_fd(s[i], fd);
-		i++;
-	}
-	if (s == NULL)
-		{
-			ft_putstr_fd("(null)", 1);
-			return (ft_strlen("(null)"));
-		}
-	return (i);
 }

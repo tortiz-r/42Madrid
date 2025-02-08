@@ -19,7 +19,6 @@ char	*ft_hex_itoa(int n, char optn)
 	unsigned int	n_cpy;
 	char			*str_num;
 
-	//printf("estoy en hex_itoa\n");
 	orden_magn = 0;
 	n_cpy = n;
 	if (n < 0)
@@ -40,7 +39,6 @@ char	*ft_hex_itoa(int n, char optn)
 		str_num = malloc(orden_magn + 1);
 	if (str_num == NULL)
 		return (NULL);
-	//printf("orden magnitud es %u\n", orden_magn);
 	return (int_to_hex_str(str_num, n_cpy, orden_magn, optn));
 }
 
