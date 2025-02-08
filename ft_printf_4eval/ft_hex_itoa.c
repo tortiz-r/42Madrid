@@ -10,61 +10,91 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_printf.h"
+#include "ft_printf.h"
 
-
-char	*int_to_hex_str(char *str_num, unsigned int n,
-			unsigned int orden_magn);
-
-char	*ft_hex_itoa(unsigned int n)
+// optn == l for lowercase; == u for uppercase
+char	*ft_hex_itoa(int n, char optn)
 {
 	unsigned int	orden_magn;
 	unsigned int	n_cpy;
 	char			*str_num;
 
-	n_cpy = ft_val_abs(n);
-	printf("n_cpy es: %u\n", n_cpy);
 	orden_magn = 0;
+	n_cpy = n;
+	if (n < 0)
+		n_cpy = UINT_MAX - (unsigned int) ft_val_abs(n) + 1;
 	while (n_cpy != 0)
 	{
 		n_cpy -= n_cpy % 16;
 		n_cpy = n_cpy / 16;
 		orden_magn++;
 	}
-	printf("orden_magn es: %u\n", orden_magn);
-	if (n > 0)
-		str_num = malloc(orden_magn + 1);
+	if (n < 0)
+		n_cpy = UINT_MAX - (unsigned int) ft_val_abs(n) + 1;
 	else
-		str_num = malloc(2);
+		n_cpy = n;
+	if (n == 0)
+		str_num = malloc(3);
+	else
+		str_num = malloc(orden_magn + 1);
 	if (str_num == NULL)
 		return (NULL);
-	if (n_cpy == 0)
-		str_num[0] = '0';
-	str_num = int_to_hex_str(str_num, ft_val_abs(n), orden_magn);
-	return (str_num);
+	return (int_to_hex_str(str_num, n_cpy, orden_magn, optn));
 }
 
 char	*int_to_hex_str(char *str_num, unsigned int n,
-			unsigned int orden_magn)
+			unsigned int orden_magn, char c)
 {
 	unsigned int	i;
 
 	i = 0;
-	printf("n es: %u\n", n);
 	if (n == 0)
+	{
+		str_num[0] = '0';
 		str_num[1] = '\0';
+	}
 	else
 		str_num[orden_magn] = '\0';
 	while (n > 0)
 	{
-        if ((n % 16) <= 9)
+		if ((n % 16) >= 10 && (n % 16) <= 15)
+			str_num[orden_magn - 1 - i] = hex_ascii(n % 16, c);
+		else
 			str_num[orden_magn - 1 - i] = (n % 16) + '0';
-		 else if ((n % 16) > 9)
-			str_num[orden_magn - 1 - i] = char ((n % 16) + 'a' - 10);
 		n -= n % 16;
 		n = n / 16;
-		// printf("%c", str_num[orden_magn - 1 - i]);
 		i++;
 	}
 	return (str_num);
 }
+
+char	hex_ascii(int num, char optn)
+{
+	if (num == 10 && optn == 'l')
+		return ('a');
+	if (num == 11 && optn == 'l')
+		return ('b');
+	if (num == 12 && optn == 'l')
+		return ('c');
+	if (num == 13 && optn == 'l')
+		return ('d');
+	if (num == 14 && optn == 'l')
+		return ('e');
+	if (num == 15 && optn == 'l')
+		return ('f');
+	if (num == 10 && optn == 'u')
+		return ('A');
+	if (num == 11 && optn == 'u')
+		return ('B');
+	if (num == 12 && optn == 'u')
+		return ('C');
+	if (num == 13 && optn == 'u')
+		return ('D');
+	if (num == 14 && optn == 'u')
+		return ('E');
+	if (num == 15 && optn == 'u')
+		return ('F');
+	return ((char) num);
+}
+
+
