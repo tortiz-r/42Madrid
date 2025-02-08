@@ -12,6 +12,10 @@
 
 #include "ft_printf.h"
 
+char	*int_to_hex_str(char *str_num, unsigned int n,
+			unsigned int orden_magn, char c);
+char	hex_ascii(int num, char optn);
+
 // optn == l for lowercase; == u for uppercase
 char	*ft_hex_itoa(int n, char optn)
 {

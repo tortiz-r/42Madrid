@@ -42,10 +42,6 @@ int				ft_putptr_fd(char *s, int fd);
 int				ft_val_abs(int n);
 unsigned long	ft_u_val_abs(long n);
 char	        hex_ascii(int num, char optn);
-char	        *int_to_hex_str(char *str_num, unsigned int n,
-			        unsigned int orden_magn, char c);
 char			*ft_ptr_hex_itoa(long n, char optn);
-char			*int_to_hex_str_ptr(char *str_num, unsigned long n,
-					unsigned int orden_magn, char c);
 
 #endif

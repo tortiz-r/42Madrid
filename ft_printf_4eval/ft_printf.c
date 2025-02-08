@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 
+
 int	ft_printf(char const *str, ...)
 {
 	int		i;
@@ -76,7 +77,19 @@ int	check_placeholder(char const *str, int pos)
 
 //en función del ph code, llama a funciones para imprimir cada cosa
 //ph_code es > 0; (1-9)
+int	print_placeholder(va_list args, int ph_code)
+{
+	int		i;
 
+	i = 0;
+	if (ph_code == 1)
+		i = ft_putchar_fd((char) va_arg(args, int), 1);
+	else if (ph_code == 9)
+		i = ft_putchar_fd('%', 1);
+	else if (ph_code >= 2 && ph_code <= 8)
+		i = print_more_placeholders(args, ph_code);
+	return (i);
+}
 
 int	print_more_placeholders(va_list args, int ph_code)
 {
@@ -101,19 +114,5 @@ int	print_more_placeholders(va_list args, int ph_code)
 	else
 		i = ft_putstr_fd(temp, 1);
 	free(temp);
-	return (i);
-}
-
-int	print_placeholder(va_list args, int ph_code)
-{
-	int		i;
-
-	i = 0;
-	if (ph_code == 1)
-		i = ft_putchar_fd((char) va_arg(args, int), 1);
-	else if (ph_code == 9)
-		i = ft_putchar_fd('%', 1);
-	else if (ph_code >= 2 && ph_code <= 8)
-		i = print_more_placeholders(args, ph_code);
 	return (i);
 }

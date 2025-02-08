@@ -6,13 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 19:27:04 by tortiz-r          #+#    #+#             */
-/*   Updated: 2025/01/23 15:45:48 by marvin           ###   ########.fr       */
+/*   Updated: 2025/02/08 20:00:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*int_to_char(char *str_num, int n_cpy, unsigned int order_magn);
+char	*int_to_char(char *str_num, int n, unsigned int order_magn);
 
 char	*ft_itoa(int n)
 {
