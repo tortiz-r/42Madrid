@@ -1,0 +1,2 @@
+aquí tiene que estar mi main.c, el Makefile para mi main.c
+pruebas mías

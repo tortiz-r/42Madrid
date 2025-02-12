@@ -1,8 +1,8 @@
 .gitignore
 .vscode/
-*test*
+*test
 */*.json
-
+printfTester
 # Prerequisites
 *.d
 
